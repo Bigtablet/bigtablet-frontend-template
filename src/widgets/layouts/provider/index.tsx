@@ -1,8 +1,8 @@
 "use client";
 
-import {ReactNode, useState} from "react";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {ToastContainer} from "react-toastify"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { type ReactNode, useState } from "react";
+import { ToastContainer } from "react-toastify"
 
 type Props = { children: ReactNode };
 

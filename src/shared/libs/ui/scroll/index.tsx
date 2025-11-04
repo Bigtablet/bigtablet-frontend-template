@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef } from "react";
-import {ScrollOption} from "./type";
+import type {ScrollOption} from "./type";
 
 export const useScroll = (options: ScrollOption) => {
     const observerRef = useRef<IntersectionObserver | null>(null);

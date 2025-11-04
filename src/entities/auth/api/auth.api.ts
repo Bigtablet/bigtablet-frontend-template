@@ -1,10 +1,10 @@
 import axios from "axios";
 import type {
-    SigninSchema,
-    SignupSchema,
     AuthResponseSchema,
     RefreshRequestSchema,
     RefreshResponseSchema,
+    SigninSchema,
+    SignupSchema,
 } from "src/entities/auth/schema/auth.schema";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;

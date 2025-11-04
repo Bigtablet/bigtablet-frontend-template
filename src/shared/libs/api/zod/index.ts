@@ -1,5 +1,5 @@
-import { z } from "zod";
-import BigtabletAxios from "src/shared/libs/api/axios";
+import {BigtabletAxios} from "src/shared/libs/api/axios";
+import type {z} from "zod";
 
 type AxiosConfig = Record<string, unknown>;
 

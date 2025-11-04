@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import Providers from "src/widgets/layouts/provider";
 import "src/shared/styles/color/_sementic.scss";
 import "src/shared/styles/typography/_mixin.scss";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Bigtablet",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const store = await cookies();
+    const _store = await cookies();
 
     return (
         <html lang="en" suppressHydrationWarning>
