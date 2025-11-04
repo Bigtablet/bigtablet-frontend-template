@@ -5,18 +5,15 @@
     "clientKind": "git",
     "useIgnoreFile": true
   },
-
   "files": {
     "ignoreUnknown": true
   },
-
   "formatter": {
     "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
+    "indentStyle": "tab",
+    "indentWidth": 4,
     "lineWidth": 100
   },
-
   "linter": {
     "enabled": true,
     "rules": {
@@ -26,7 +23,6 @@
       }
     }
   },
-
   "assist": {
     "actions": {
       "source": {
@@ -34,10 +30,14 @@
       }
     }
   },
-
   "overrides": [
     {
-      "includes": ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"],
+      "includes": [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.spec.ts",
+        "**/*.spec.tsx"
+      ],
       "linter": {
         "rules": {
           "correctness": {
@@ -47,7 +47,9 @@
       }
     },
     {
-      "includes": ["**/*.stories.tsx"],
+      "includes": [
+        "**/*.stories.tsx"
+      ],
       "linter": {
         "rules": {
           "correctness": {
