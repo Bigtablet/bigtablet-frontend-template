@@ -2,7 +2,7 @@
 
 This project is a frontend template based on Next.js 16 + React 19 + TypeScript. It uses pnpm as the package manager. This guide is written with WebStorm as the IDE and macOS as the OS environment in mind.
 
-[📘 Read this in English](./README.md)
+[📘 한국어로 읽기](./README_KO.md)
 
 **Key Dependencies:** `next 16.0.1`, `react 19.2.0`, `@tanstack/react-query`, `axios`, `zod`, `react-toastify`
 **Development Tools:** `TypeScript`, `Biome` (lint/format)
