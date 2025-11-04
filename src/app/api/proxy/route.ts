@@ -1,13 +1,13 @@
 import { cookies } from "next/headers";
 import axios from "axios";
 
-const BACKEND_URL = process.env.SERVER_URL;
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export async function GET() {
     const access = (await cookies()).get("accessToken")?.value;
 
     const api = axios.create({
-        baseURL: BACKEND_URL,
+        baseURL: SERVER_URL,
         timeout: 15000,
         headers: access ? { Authorization: `Bearer ${access}` } : {},
     });
