@@ -1,6 +1,6 @@
 # BIGTABLET Frontend Template (Next.js) — 사용 가이드
 
-이 프로젝트는 **Next.js 16 + React 19 + TypeScript** 기반의 프런트엔드 템플릿입니다. 패키지 매니저는 **pnpm**을 사용합니다. IDE는 **WebStorm**, OS는 **macOS** 환경을 기준으로 작성했습니다.
+이 프로젝트는 **Next.js 16 + React 19 + TypeScript** 기반의 프론트엔드 템플릿입니다. 패키지 매니저는 **pnpm**을 사용합니다. IDE는 **WebStorm**, OS는 **macOS** 환경을 기준으로 작성했습니다.
 
 [📘 한국어로 읽기](./README.md)
 
