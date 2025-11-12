@@ -1,5 +1,5 @@
-import {BigtabletAxios} from "src/shared/libs/api/axios";
-import type {z} from "zod";
+import { BigtabletAxios } from "src/shared/libs/api/axios";
+import type { z } from "zod";
 
 type AxiosConfig = Record<string, unknown>;
 
@@ -29,6 +29,16 @@ export const putParsed = async <S extends z.ZodTypeAny>(
     config?: AxiosConfig
 ): Promise<z.infer<S>> => {
     const res = await BigtabletAxios.put<unknown>(url, body, config);
+    return schema.parse(res.data);
+};
+
+export const patchParsed = async <S extends z.ZodTypeAny>(
+    url: string,
+    schema: S,
+    body?: unknown,
+    config?: AxiosConfig
+): Promise<z.infer<S>> => {
+    const res = await BigtabletAxios.patch<unknown>(url, body, config);
     return schema.parse(res.data);
 };
 
