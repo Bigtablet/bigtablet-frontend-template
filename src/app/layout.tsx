@@ -1,8 +1,7 @@
-import "src/shared/styles/global.scss";
-import { cookies } from "next/headers";
+import "src/shared/styles/global.css";
 import Providers from "src/widgets/layouts/provider";
-import "src/shared/styles/color/_sementic.scss";
-import "src/shared/styles/typography/_mixin.scss";
+import "@bigtablet/design-system/style.css";
+import "src/shared/styles/token.scss";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,7 +12,6 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const _store = await cookies();
 
     return (
         <html lang="en" suppressHydrationWarning>

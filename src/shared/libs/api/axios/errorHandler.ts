@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import {useToast} from "src/shared/ui/feedback/toast/useToast";
+import {useToast} from "@bigtablet/design-system";
 
 const errorHandler = (error: AxiosError): void => {
     const toast = useToast();

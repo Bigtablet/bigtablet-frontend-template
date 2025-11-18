@@ -4,9 +4,9 @@ import { useCallback, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SigninSchema } from "src/entities/signin/schema/signin.schema";
 import { useSigninMutation } from "src/features/signin/model/query/signin.query";
-import { useToast } from "src/shared/ui/feedback/toast/useToast";
 import Token from "src/shared/libs/api/cookie";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/signin/constants/signin.constants";
+import {useToast} from "@bigtablet/design-system";
 
 type FieldErrors = Partial<Record<keyof SigninSchema, string>>;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
