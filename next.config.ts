@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
         includePaths: ["./src/shared/styles"],
     },
 
+    async redirects() {
+        return [
+            { source: '/', destination: '/signin', permanent: true },
+        ];
+    },
+
     images: {
         remotePatterns: [
             {
