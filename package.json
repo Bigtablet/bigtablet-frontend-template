@@ -18,7 +18,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-toastify": "^11.0.5",
-    "sass": "^1.94.1",
+    "sass": "^1.94.2",
     "zod": "^4.1.12"
   },
   "devDependencies": {
