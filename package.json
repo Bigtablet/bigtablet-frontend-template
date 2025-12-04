@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@bigtablet/design-system": "^1.2.4",
-    "@tanstack/react-query": "^5.90.6",
+    "@tanstack/react-query": "^5.90.12",
     "axios": "^1.13.1",
     "js-cookie": "^3.0.5",
     "next": "16.0.7",
