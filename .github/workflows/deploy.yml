@@ -30,8 +30,9 @@ jobs:
 
       - name: Set package.json version
         run: |
-          VERSION=${{ steps.tag.outputs.tag#v }}
-          npm version $VERSION --no-git-tag-version
+          TAG="${{ steps.tag.outputs.tag }}"
+          VERSION="${TAG#v}"
+          npm version "$VERSION" --no-git-tag-version
 
       - name: Install dependencies
         run: npm install
