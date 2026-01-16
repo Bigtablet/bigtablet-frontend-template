@@ -6,67 +6,70 @@
 
 # BIGTABLET Frontend Template
 
-[![npm version](https://img.shields.io/npm/v/@bigtablet/design-system.svg)](https://www.npmjs.com/package/@bigtablet/create-frontend)
+[![npm version](https://img.shields.io/npm/v/@bigtablet/create-frontend.svg)](https://www.npmjs.com/package/@bigtablet/create-frontend)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Bigtablet/.github/blob/main/BIGTABLET_LICENSE.md)
 [![Architecture](https://img.shields.io/badge/docs-architecture-blue)](https://github.com/Bigtablet/bigtablet-frontend-template/blob/main/docs/architecture.md)
-## 개발 가이드
-
-프로젝트의 전체 구조와 설계 의도에 대한 자세한 내용은  
-[`docs/architecture.md`](./docs/architecture.md) 문서를 참고하세요.
-
 
 ---
 
-## 서버 통신 규칙
+## 사용 방법
 
-이 템플릿은 타입 안정성과 예측 가능한 데이터 흐름을 위해 서버 통신 규칙을 명확히 정의합니다.
+BIGTABLET Frontend Template는 CLI 형태로 제공되며,  
+`npx`를 통해 별도의 설치 없이 바로 사용할 수 있습니다.
 
-- Axios를 직접 사용하지 않습니다.
-- 모든 서버 응답은 Zod 스키마를 통해 검증합니다.
-- HTTP 메서드별 공통 API 함수만 사용합니다.
-- 에러는 공통 파서로 변환하여 처리합니다.
-- 네트워크 에러와 서버 에러를 명확히 구분합니다.
+### 프로젝트 생성
 
----
+아래 명령어를 실행하면 지정한 이름의 디렉터리에  
+Bigtablet 표준 프론트엔드 프로젝트가 생성됩니다.
 
-## 코드 작성 가이드
+```bash
+npx @bigtablet/create-frontend my-app
+```
 
-코드 작성 시 다음 가이드를 따르는 것을 권장합니다.
+또는 다음 명령어도 동일하게 동작합니다.
+```bash
+npx create-bigtablet-frontend my-app
+```
 
-- 파일과 디렉터리는 역할과 책임이 명확하도록 구성합니다.
-- 하나의 파일은 하나의 역할만 수행하도록 유지합니다.
-- 타입 정의는 명시적으로 작성하여 암묵적인 타입 추론에 의존하지 않습니다.
-- 재사용 가능한 로직은 공통 영역으로 분리합니다.
-- 불필요한 추상화는 지양합니다.
+### 프로젝트 실행
 
----
+프로젝트 생성이 완료되면, 생성된 디렉터리로 이동한 뒤  
+개발 서버를 실행합니다.
 
-## 권장 개발 흐름
+```bash
+cd my-app
+pnpm run dev
+```
 
-일반적인 개발 흐름은 다음과 같습니다.
+개발 서버가 실행되면 브라우저에서 아래 주소로 접속할 수 있습니다.
 
-1. 도메인 요구 사항 정의
-2. 서버 API 스펙 확인 및 Zod 스키마 작성
-3. 도메인 단위 로직 구현
-4. 기능 단위 조합 및 화면 연결
-5. UI 및 인터랙션 구현
-6. 에러 처리 및 예외 케이스 점검
+```link
+http://localhost:3000
+```
 
----
+### 요구 사항
 
-## 브라우저 지원
+이 템플릿을 사용하기 위해 아래 환경이 필요합니다.
 
-- Chrome (최신 2개 버전)
-- Firefox (최신 2개 버전)
-- Safari (최신 2개 버전)
-- Edge (최신 2개 버전)
+- Node.js 20 LTS 이상 권장
+- 패키지 매니저: pnpm
 
----
+pnpm이 설치되어 있지 않은 경우 아래 명령어로 설치할 수 있습니다.
 
-## 유지 관리 및 업데이트
+```bash
+npm install -g pnpm
+```
 
-이 템플릿은 Bigtablet 내부 표준에 맞추어 지속적으로 개선됩니다.
+## 관련 링크
 
-- 새로운 기술 스택 도입 시 템플릿에 반영됩니다.
-- 내부 서비스 요구 사항에 따라 구조 및 설정이 업데이트될 수 있습니다.
-- 기존 프로젝트와의 호환성을 최대한 유지하는 방향으로 관리됩니다.
+
+## 관련 링크
+
+- Bigtablet Design System  
+  https://www.npmjs.com/package/@bigtablet/design-system
+
+- GitHub Repository  
+  https://github.com/Bigtablet/bigtablet-frontend-template
+
+- Architecture Guide  
+  https://github.com/Bigtablet/bigtablet-frontend-template/blob/main/docs/architecture.md
