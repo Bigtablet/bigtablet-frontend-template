@@ -15,7 +15,7 @@ pnpm-lock.yaml # keep in VCS; comment this out if you prefer to commit the lockf
 # Next.js
 .next/
 out/
-next-env.d.ts
+template/next-env.d.ts
 
 # Build artifacts
 dist/
