@@ -1,28 +1,40 @@
 name: Publish to npm
 
 on:
-  push:
-    tags:
-      - "*"
+  workflow_run:
+    workflows: ["Auto tag on release merge"]
+    types:
+      - completed
 
 jobs:
   publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 18
           registry-url: https://registry.npmjs.org/
+
+      - name: Get latest tag
+        id: tag
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Set package.json version
+        run: |
+          VERSION=${{ steps.tag.outputs.tag#v }}
+          npm version $VERSION --no-git-tag-version
 
       - name: Install dependencies
         run: npm install
 
       - name: Publish package
-        run: npm publish --access public
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
