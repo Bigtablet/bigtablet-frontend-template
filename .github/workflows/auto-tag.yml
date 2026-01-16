@@ -1,16 +1,14 @@
-name: Auto tag on release merge
-
+name: Publish to npm
 
 on:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: write
+  workflow_run:
+    workflows: ["Auto tag on release merge"]
+    types:
+      - completed
 
 jobs:
-  tag:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -18,23 +16,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Extract release version
-        id: release
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B)
-          echo "Commit message: $COMMIT_MSG"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
 
-          if [[ "$COMMIT_MSG" =~ merge:\ develop@([0-9]+\.[0-9]+\.[0-9]+) ]]; then
-            VERSION=${BASH_REMATCH[1]}
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
-          else
-            echo "No release commit found."
-            exit 0
-          fi
-
-      - name: Create and push tag
-        if: steps.release.outputs.version
+      - name: Get latest tag
+        id: tag
         run: |
-          VERSION=${{ steps.release.outputs.version }}
-          git tag v$VERSION
-          git push origin v$VERSION
+          TAG=$(git describe --tags --abbrev=0)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Set package.json version
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          VERSION="${TAG#v}"
+          npm version "$VERSION" --no-git-tag-version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
