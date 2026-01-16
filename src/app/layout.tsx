@@ -1,4 +1,4 @@
-import "src/shared/styles/global.css";
+import "src/app/global.css";
 import Providers from "src/widgets/layouts/provider";
 import "@bigtablet/design-system/style.css";
 import "src/shared/styles/token.scss";
