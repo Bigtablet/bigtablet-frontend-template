@@ -3,6 +3,7 @@
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
+import { fileURLToPath } from "url";
 
 const projectName = process.argv[2];
 
@@ -25,12 +26,10 @@ if (fs.existsSync(targetDir)) {
     process.exit(1);
 }
 
-const __dirname = new URL(".", import.meta.url).pathname;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const templateDir = path.resolve(
-    decodeURIComponent(__dirname),
-    "../../template"
-);
+const templateDir = path.resolve(__dirname, "../template");
 
 fs.cpSync(templateDir, targetDir, { recursive: true });
 
