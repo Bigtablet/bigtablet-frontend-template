@@ -1,0 +1,36 @@
+name: Auto tag on release merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract release version
+        id: release
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          echo "Commit message: $COMMIT_MSG"
+
+          if [[ "$COMMIT_MSG" =~ merge:\ release\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+            VERSION=${BASH_REMATCH[1]}
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "No release commit found."
+            exit 0
+          fi
+
+      - name: Create and push tag
+        if: steps.release.outputs.version
+        run: |
+          VERSION=${{ steps.release.outputs.version }}
+          git tag v$VERSION
+          git push origin v$VERSION
