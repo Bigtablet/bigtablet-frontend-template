@@ -1,5 +1,8 @@
 {
   "name": "@bigtablet/create-frontend",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.1.0",
   "description": "Bigtablet Next.js frontend template",
   "bin": {
