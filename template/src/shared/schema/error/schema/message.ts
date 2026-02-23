@@ -4,5 +4,5 @@
  * @example "이메일 형식이 올바르지 않습니다!"
  */
 export const message = (target: string) => {
-    return `형식은 ${target} 이어야 합니다.`;
+	return `형식은 ${target} 이어야 합니다.`;
 };

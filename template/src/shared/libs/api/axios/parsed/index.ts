@@ -10,21 +10,21 @@ import { ErrorResponseParsed } from "src/shared/schema/error/parsed";
  * - AxiosError가 아닐 경우 네트워크 오류로 처리
  */
 export const parseAxiosError = (error: unknown): never => {
-    if (error instanceof AxiosError) {
-        const responseData = error.response?.data;
+	if (error instanceof AxiosError) {
+		const responseData = error.response?.data;
 
-        try {
-            throw ErrorResponseParsed.parse(responseData);
-        } catch {
-            throw {
-                message: "알 수 없는 서버 오류가 발생했습니다.",
-                status: error.response?.status ?? 500,
-            };
-        }
-    }
+		try {
+			throw ErrorResponseParsed.parse(responseData);
+		} catch {
+			throw {
+				message: "알 수 없는 서버 오류가 발생했습니다.",
+				status: error.response?.status ?? 500,
+			};
+		}
+	}
 
-    throw {
-        message: "네트워크 오류가 발생했습니다.",
-        status: 0,
-    };
+	throw {
+		message: "네트워크 오류가 발생했습니다.",
+		status: 0,
+	};
 };

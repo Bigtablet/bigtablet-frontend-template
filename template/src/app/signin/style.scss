@@ -1,24 +1,24 @@
-@use "src/shared/styles/token" as *;
+@use "@bigtablet/design-system/scss/token" as token;
 
 .auth-main {
   width: 100vw;
   height: 100vh;
-  @include flex-center;
-  background-color: $color-background;
+  @include token.flex-center;
+  background-color: token.$color-background;
 
   .auth-container {
-    @include flex-column-center;
-    padding: $spacing-lg $spacing-xl;
-    background-color: $color-background-secondary;
-    border-radius: $radius-lg;
-    box-shadow: $shadow-lg;
-    gap: $spacing-xl;
+    @include token.flex-column-center;
+    padding: token.$spacing-lg token.$spacing-xl;
+    background-color: token.$color-background-secondary;
+    border-radius: token.$radius-lg;
+    box-shadow: token.$shadow-lg;
+    gap: token.$spacing-xl;
 
     .auth-textfield {
-      @include flex-column-center;
+      @include token.flex-column-center;
       width: 100%;
-      padding: $spacing-sm;
-      gap: $spacing-md;
+      padding: token.$spacing-sm;
+      gap: token.$spacing-md;
 
       a {
         color: inherit;
@@ -26,7 +26,7 @@
       }
 
       span {
-        @include text-sm;
+        @include token.text-sm;
         cursor: pointer;
       }
     }

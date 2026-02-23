@@ -1,5 +1,5 @@
 export const Keys = {
-    gcp: {
-        upload: "/gcp",
-    },
+	gcp: {
+		upload: "/gcp",
+	},
 } as const;
