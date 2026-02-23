@@ -1,5 +1,5 @@
 {
-	"name": "bigtablet-frontend-template",
+	"name": "__PROJECT_NAME__",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",

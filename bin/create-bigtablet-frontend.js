@@ -33,6 +33,26 @@ const templateDir = path.resolve(__dirname, "../template");
 
 fs.cpSync(templateDir, targetDir, { recursive: true });
 
+fs.writeFileSync(
+    path.join(targetDir, ".gitignore"),
+    [
+        "node_modules/",
+        ".next/",
+        "out/",
+        "dist/",
+        "build/",
+        "",
+        ".env",
+        ".env.local",
+        ".env.*.local",
+        "",
+        "*.log",
+        ".DS_Store",
+        ".vercel/",
+        "",
+    ].join("\n")
+);
+
 const pkgPath = path.join(targetDir, "package.json");
 const pkg = fs.readFileSync(pkgPath, "utf8");
 
@@ -48,6 +68,14 @@ const packageManager = userAgent.includes("pnpm")
     : userAgent.includes("yarn")
         ? "yarn"
         : "npm";
+
+const pmVersion = userAgent.match(new RegExp(`${packageManager}/(\\S+)`))?.[1]?.split(" ")[0] || "";
+
+if (pmVersion) {
+    const pkgJson = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+    pkgJson.packageManager = `${packageManager}@${pmVersion}`;
+    fs.writeFileSync(pkgPath, JSON.stringify(pkgJson, null, "\t") + "\n");
+}
 
 const installCommand =
     packageManager === "yarn"

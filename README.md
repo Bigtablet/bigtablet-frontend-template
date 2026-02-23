@@ -62,9 +62,6 @@ npm install -g pnpm
 
 ## 관련 링크
 
-
-## 관련 링크
-
 - Bigtablet Design System  
   https://www.npmjs.com/package/@bigtablet/design-system
 

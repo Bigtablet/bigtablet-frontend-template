@@ -27,7 +27,11 @@ jobs:
 
       - name: Set package.json version
         run: |
-          npm version "${{ steps.version.outputs.version }}" --no-git-tag-version
+          node -e "
+            const pkg = require('./package.json');
+            pkg.version = '${{ steps.version.outputs.version }}';
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
 
       - name: Install dependencies
         run: npm install
