@@ -1,12 +1,12 @@
-import {useGcpUploadMutation} from "src/shared/libs/api/gcp/query/gcp.query";
+import { useGcpUploadMutation } from "src/shared/libs/api/gcp/query/gcp.query";
 
 export const useGcpUpload = (options?: Parameters<typeof useGcpUploadMutation>[0]) => {
-    const m = useGcpUploadMutation(options);
+	const m = useGcpUploadMutation(options);
 
-    const upload = async (file: File) => {
-        const res = await m.mutateAsync(file);
-        return res.data;
-    };
+	const upload = async (file: File) => {
+		const res = await m.mutateAsync(file);
+		return res.data;
+	};
 
-    return { upload, ...m };
+	return { upload, ...m };
 };

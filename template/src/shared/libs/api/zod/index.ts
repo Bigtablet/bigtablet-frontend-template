@@ -1,6 +1,6 @@
-import type { z } from "zod";
 import { BigtabletAxios } from "src/shared/libs/api/axios";
-import {parseAxiosError} from "src/shared/libs/api/axios/parsed";
+import { parseAxiosError } from "src/shared/libs/api/axios/parsed";
+import type { z } from "zod";
 
 type AxiosConfig = Record<string, unknown>;
 

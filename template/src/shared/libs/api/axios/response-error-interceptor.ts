@@ -36,8 +36,7 @@ const subscribeRefresh = (callback: (ok: boolean) => void) => {
  * - 그 외 에러는 그대로 상위로 전파한다.
  */
 export const responseErrorInterceptor = async (error: AxiosError) => {
-	const originalRequest =
-		(error.config as AxiosRequestConfig & { _retry?: boolean }) ?? undefined;
+	const originalRequest = (error.config as AxiosRequestConfig & { _retry?: boolean }) ?? undefined;
 
 	/** 요청 취소 */
 	if (axios.isCancel(error)) {
