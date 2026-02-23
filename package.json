@@ -4,6 +4,7 @@
     "access": "public"
   },
   "version": "0.1.0",
+  "type": "module",
   "description": "Bigtablet Next.js frontend template",
   "bin": {
     "create-bigtablet-frontend": "bin/create-bigtablet-frontend.js"
