@@ -1,3 +1,3 @@
 export interface Gcp {
-    data: string;
+	data: string;
 }

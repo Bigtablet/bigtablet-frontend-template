@@ -22,7 +22,7 @@ export const BigtabletNavigation = ({ children }: { children: React.ReactNode })
 	};
 
 	useEffect(() => {
-		if (isLoading) {
+		if (pathname) {
 			setIsLoading(false);
 		}
 	}, [pathname]);

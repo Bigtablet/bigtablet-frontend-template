@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import {useNavigationStore} from "src/shared/hooks/next/navigation";
+import { useNavigationStore } from "src/shared/hooks/next/navigation";
 
 const DEFAULT_THROTTLE_MS = 300;
 
