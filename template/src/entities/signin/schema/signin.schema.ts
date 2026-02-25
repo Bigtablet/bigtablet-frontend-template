@@ -8,12 +8,12 @@ import { z } from "zod";
  * - `email`: 필수 문자열
  * - `password`: 필수 문자열
  */
-export const signinZod = z.object({
+export const signinSchema = z.object({
 	email: z.string(),
 	password: z.string(),
 });
 
-export type SigninSchema = z.infer<typeof signinZod>;
+export type SigninSchema = z.infer<typeof signinSchema>;
 
 /**
  * @description
@@ -21,11 +21,11 @@ export type SigninSchema = z.infer<typeof signinZod>;
  *
  * `refreshToken` : 필수 문자열 (jwt 파싱 상태)
  * */
-export const refreshRequestZod = z.object({
+export const refreshRequestSchema = z.object({
 	refreshToken: z.string(),
 });
 
-export type RefreshRequestSchema = z.infer<typeof refreshRequestZod>;
+export type RefreshRequestSchema = z.infer<typeof refreshRequestSchema>;
 
 /**
  * @description
@@ -39,13 +39,13 @@ export type RefreshRequestSchema = z.infer<typeof refreshRequestZod>;
  * }
  * 이 스카마에선 `data` 필드에 액세스 토큰 정보를 정의합니다.
  * */
-export const refreshResponseZod = baseResponseSchema(
+export const refreshResponseSchema = baseResponseSchema(
 	z.object({
 		accessToken: z.string(),
 	}),
 );
 
-export type RefreshResponseSchema = z.infer<typeof refreshResponseZod>;
+export type RefreshResponseSchema = z.infer<typeof refreshResponseSchema>;
 
 /**
  * @description
@@ -59,11 +59,11 @@ export type RefreshResponseSchema = z.infer<typeof refreshResponseZod>;
  * }
  * 이 스키마에서는 `data` 필드에 액세스/리프레시 토큰 정보를 정의합니다.
  */
-export const authResponseZod = baseResponseSchema(
+export const authResponseSchema = baseResponseSchema(
 	z.object({
 		accessToken: z.string(),
 		refreshToken: z.string().optional(),
 	}),
 );
 
-export type AuthResponseSchema = z.infer<typeof authResponseZod>;
+export type AuthResponseSchema = z.infer<typeof authResponseSchema>;

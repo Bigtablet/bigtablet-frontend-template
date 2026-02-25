@@ -53,6 +53,11 @@ fs.writeFileSync(
     ].join("\n")
 );
 
+fs.writeFileSync(
+    path.join(targetDir, ".env.example"),
+    "NEXT_PUBLIC_SERVER_URL=\n"
+);
+
 const pkgPath = path.join(targetDir, "package.json");
 const pkg = fs.readFileSync(pkgPath, "utf8");
 
