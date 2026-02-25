@@ -1,6 +1,6 @@
 import axios, { type AxiosError, type AxiosRequestConfig } from "axios";
 import { refreshApi } from "src/entities/signin/api/signin.api";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/signin/model/constants/signin.constants";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/signin/constants/signin.constants";
 import Token from "src/shared/libs/api/cookie";
 import { BigtabletAxios } from "./index";
 

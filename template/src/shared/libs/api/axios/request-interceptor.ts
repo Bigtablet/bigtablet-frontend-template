@@ -1,5 +1,5 @@
 import { AxiosHeaders, type InternalAxiosRequestConfig } from "axios";
-import { ACCESS_TOKEN } from "src/entities/signin/model/constants/signin.constants";
+import { ACCESS_TOKEN } from "src/entities/signin/constants/signin.constants";
 import Token from "src/shared/libs/api/cookie";
 
 const asAxiosHeaders = (h?: InternalAxiosRequestConfig["headers"]) =>
