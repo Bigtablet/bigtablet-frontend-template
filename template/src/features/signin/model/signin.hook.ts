@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/signin/constants/signin.constants";
 import type { SigninSchema } from "src/entities/signin/schema/signin.schema";
-import { useSigninMutation } from "src/features/signin/model/query/signin.query";
+import { useSigninMutation } from "src/features/signin/mutation/signin.mutation";
 import Token from "src/shared/libs/api/cookie";
 
 type FieldErrors = Partial<Record<keyof SigninSchema, string>>;

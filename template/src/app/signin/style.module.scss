@@ -1,12 +1,12 @@
 @use "@bigtablet/design-system/scss/token" as token;
 
-.auth-main {
+.auth_main {
   width: 100vw;
   height: 100vh;
   @include token.flex-center;
   background-color: token.$color-background;
 
-  .auth-container {
+  .auth_container {
     @include token.flex-column-center;
     padding: token.$spacing-lg token.$spacing-xl;
     background-color: token.$color-background-secondary;
@@ -14,7 +14,7 @@
     box-shadow: token.$shadow-lg;
     gap: token.$spacing-xl;
 
-    .auth-textfield {
+    .auth_textfield {
       @include token.flex-column-center;
       width: 100%;
       padding: token.$spacing-sm;

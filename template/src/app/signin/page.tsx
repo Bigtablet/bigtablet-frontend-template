@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import useSignin from "src/features/signin/model/signin.hook";
-import "./style.scss";
+import styles from "./style.module.scss";
 import { Button, TextField } from "@bigtablet/design-system";
 
 const Signin = () => {
@@ -10,8 +10,8 @@ const Signin = () => {
 		useSignin();
 
 	return (
-		<main className="auth-main">
-			<div className="auth-container">
+		<main className={styles.auth_main}>
+			<div className={styles.auth_container}>
 				<Image
 					width={320}
 					height={80}
@@ -20,7 +20,7 @@ const Signin = () => {
 					priority
 				/>
 
-				<div className="auth-textfield">
+				<div className={styles.auth_textfield}>
 					<TextField
 						label="Email"
 						name="email"
