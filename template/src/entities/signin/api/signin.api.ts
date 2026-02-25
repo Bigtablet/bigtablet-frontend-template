@@ -2,8 +2,8 @@ import axios from "axios";
 import {
 	type AuthResponseSchema,
 	type RefreshRequestSchema,
-	refreshRequestZod,
-	refreshResponseZod,
+	refreshRequestSchema,
+	refreshResponseSchema,
 	type SigninSchema,
 } from "src/entities/signin/schema/signin.schema";
 
@@ -15,10 +15,10 @@ export const signinApi = async (signin: SigninSchema): Promise<AuthResponseSchem
 };
 
 export const refreshApi = async (refresh: RefreshRequestSchema): Promise<string> => {
-	refreshRequestZod.parse(refresh);
+	refreshRequestSchema.parse(refresh);
 
 	const res = await axios.post(`${SERVER_URL}/auth/refresh`, refresh, { withCredentials: true });
-	const parsed = refreshResponseZod.parse(res.data);
+	const parsed = refreshResponseSchema.parse(res.data);
 
 	const accessToken = parsed.data?.accessToken;
 	if (!accessToken) throw new Error("No accessToken in refresh response");

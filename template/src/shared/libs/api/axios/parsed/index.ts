@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { ErrorResponseParsed } from "src/shared/schema/error/parsed";
+import { ErrorResponseParsedSchema } from "src/shared/schema/error/parsed";
 
 /**
  * @description
@@ -14,7 +14,7 @@ export const parseAxiosError = (error: unknown): never => {
 		const responseData = error.response?.data;
 
 		try {
-			throw ErrorResponseParsed.parse(responseData);
+			throw ErrorResponseParsedSchema.parse(responseData);
 		} catch {
 			throw {
 				message: "알 수 없는 서버 오류가 발생했습니다.",
