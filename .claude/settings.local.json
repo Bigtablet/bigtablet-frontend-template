@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm add:*)",
+      "Bash(pnpm build:*)",
+      "Bash(python3 -c \" import sys, json for line in sys.stdin: try: obj = json.loads\\(line\\) if obj.get\\(''type''\\) == ''human'': for block in obj.get\\(''message'', {}\\).get\\(''content'', []\\): if isinstance\\(block, dict\\) and ''webauthn'' in str\\(block.get\\(''text'', ''''\\)\\).lower\\(\\): print\\(block.get\\(''text'', ''''\\)[:3000]\\) print\\(''---END---''\\) except: pass \")",
+      "Bash(python3 -c \" import sys, json for line in sys.stdin: try: obj = json.loads\\(line\\) if obj.get\\(''type''\\) == ''human'': msg = obj.get\\(''message'', {}\\) content = msg.get\\(''content'', []\\) if isinstance\\(content, list\\): for block in content: text = '''' if isinstance\\(block, dict\\): text = block.get\\(''text'', ''''\\) elif isinstance\\(block, str\\): text = block if ''webauthn'' in text.lower\\(\\) or ''물리키'' in text: print\\(text[:5000]\\) print\\(''=== END BLOCK ===''\\) except Exception as e: pass \")",
+      "Bash(python3 -c \" import sys, json for line in sys.stdin: try: obj = json.loads\\(line\\) if obj.get\\(''type''\\) == ''human'': msg = obj.get\\(''message'', {}\\) content = msg.get\\(''content'', []\\) full_text = json.dumps\\(content, ensure_ascii=False\\) if ''register'' in full_text.lower\\(\\) and ''start'' in full_text.lower\\(\\) and ''auth'' in full_text.lower\\(\\): # Found the message with API spec if isinstance\\(content, list\\): for block in content: if isinstance\\(block, dict\\) and block.get\\(''type''\\) == ''text'': t = block.get\\(''text'', ''''\\) if len\\(t\\) > 100: print\\(t[:5000]\\) print\\(''=== END ===''\\) except Exception as e: pass \")",
+      "Bash(python3:*)",
+      "Bash(git stash:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh issue create:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr list:*)",
+      "Bash(git log:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(git mv:*)",
+      "Bash(git rm:*)",
+      "Bash(git show-ref:*)",
+      "Bash(gh run list:*)",
+      "Bash(cat:*)",
+      "Bash(gh pr close:*)",
+      "Bash(pnpm format:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npx biome:*)",
+      "Bash(git pull:*)",
+      "Bash(git reset:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(gh pr view:*)",
+      "Bash(git fetch:*)",
+      "Bash(gh release:*)",
+      "Bash(gh api:*)"
+    ]
+  }
+}

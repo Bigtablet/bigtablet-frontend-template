@@ -64,8 +64,11 @@ const handleSubmit = () => {
 | --- | --- | --- |
 | Component | `index.tsx` | `src/widgets/sidebar/index.tsx` |
 | Hook | `use-<name>.ts` | `src/features/signin/model/use-signin.ts` |
+| Store (Zustand) | `use-<name>.store.ts` | `src/shared/libs/modal/use-modal.store.ts` |
 | Utility | `<name>.util.ts` | `src/shared/libs/date.util.ts` |
 | Schema/Types | `<name>.schema.ts` | `src/entities/signin/schema/signin.schema.ts` |
+| Constants | `<name>.constants.ts` | `src/entities/signin/constants/signin.constants.ts` |
+| Query/Mutation Keys | `<domain>.keys.ts` | `src/entities/member/query/member.keys.ts` |
 | API | `<name>.api.ts` | `src/entities/signin/api/signin.api.ts` |
 | API Schema | `<name>.schema.ts` | `src/entities/member/api/api.schema.ts` |
 | Style | `style.module.scss` | Component-level styles |
