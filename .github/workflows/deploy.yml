@@ -1,42 +1,36 @@
 name: Publish to npm
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [main]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          fetch-depth: 0
+          version: 9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: pnpm
           registry-url: https://registry.npmjs.org/
 
-      - name: Get version from release tag
-        id: version
-        run: |
-          VERSION="${GITHUB_REF_NAME}"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Set package.json version
-        run: |
-          node -e "
-            const pkg = require('./package.json');
-            pkg.version = '${{ steps.version.outputs.version }}';
-            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
-
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
 
       - name: Publish package
-        run: npm publish
+        run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
