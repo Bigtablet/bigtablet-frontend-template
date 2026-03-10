@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Bigtablet Next.js frontend template",
   "bin": {
@@ -11,10 +11,22 @@
   },
   "files": [
     "bin",
-    "template"
+    "template",
+    "templates"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.9.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.0.0"
   },
   "license": "MIT"
 }

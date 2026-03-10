@@ -14,8 +14,8 @@ if (!projectName) {
 
 const [nodeMajor] = process.versions.node.split(".").map(Number);
 
-if (nodeMajor < 18) {
-    console.error("Node.js 18 or higher is required.");
+if (nodeMajor < 24) {
+    console.error("Node.js 24 or higher is required.");
     process.exit(1);
 }
 
