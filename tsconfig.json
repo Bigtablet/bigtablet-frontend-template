@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"lib": ["ES2022", "ESNext"],
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"types": ["node"],
+		"strict": true,
+		"skipLibCheck": true,
+		"baseUrl": ".",
+		"paths": {
+			"src/*": ["./src/*"]
+		}
+	},
+	"include": ["src/**/*.ts", "tsup.config.ts"],
+	"exclude": ["node_modules", "template", "templates", "bin"]
+}

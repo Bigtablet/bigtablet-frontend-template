@@ -1,31 +1,30 @@
 "use client";
 
-import { AlertProvider, ToastProvider } from "@bigtablet/design-system";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type ReactNode, useState } from "react";
+import { Toaster } from "sonner";
 
-import { createMutationCache } from "src/shared/libs/api/query/mutation-cache";
-import ToastBridgeProvider from "src/shared/libs/api/toast/toast-bridge-provider";
 import { ModalRenderer } from "src/shared/libs/modal";
 
 type ProviderProps = { children: ReactNode };
 
 /**
  * @description
- * 앱 전체에 걸쳐 사용되는 전역 Provider들을 합성하는 컴포넌트입니다.
+ * 앱 전체에 걸쳐 사용되는 전역 Provider들을 합성하는 컴포넌트입니다. (shadcn/ui 버전)
  *
  * Provider 체인 순서:
  * 1. QueryClientProvider - 서버 상태 관리 (React Query)
- * 2. AlertProvider - 디자인 시스템 Alert
- * 3. ToastProvider - 디자인 시스템 Toast UI 렌더링
- * 4. ToastBridgeProvider - React 트리 외부(MutationCache)에서 Toast 사용 가능하게 연결
- * 5. ModalRenderer - 전역 모달 스택 렌더링
+ * 2. Toaster - sonner 토스트 알림 렌더링
+ * 3. ModalRenderer - 전역 모달 스택 렌더링
+ *
+ * @remarks
+ * toast 호출은 sonner의 toast() 함수를 직접 사용합니다.
+ * import { toast } from "sonner";
  */
 const Providers = ({ children }: ProviderProps) => {
 	const [queryClient] = useState(
 		() =>
 			new QueryClient({
-				mutationCache: createMutationCache(),
 				defaultOptions: {
 					queries: {
 						staleTime: 1000 * 30,
@@ -44,12 +43,9 @@ const Providers = ({ children }: ProviderProps) => {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<AlertProvider>
-				<ToastProvider />
-				<ToastBridgeProvider />
-				<ModalRenderer />
-				{children}
-			</AlertProvider>
+			<Toaster richColors position="top-right" />
+			<ModalRenderer />
+			{children}
 		</QueryClientProvider>
 	);
 };

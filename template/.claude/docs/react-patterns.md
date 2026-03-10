@@ -6,7 +6,7 @@ React Query, Server/Client 컴포넌트 패턴 가이드입니다.
 
 | Type | Rule |
 | --- | --- |
-| Global state | TBD |
+| Global state | **Zustand** (UI/client state: modal stack, toast ref) |
 | Server state | **TanStack Query** recommended |
 | Suspense | `suspense: true` recommended |
 | Error/Loading | `ErrorBoundary` + `Suspense` combination |
@@ -144,18 +144,28 @@ import CustomSuspense from "src/shared/ui/custom-suspense";
 
 ## Authentication Flow
 
+### Direct API (기본)
+
 1. Tokens stored in cookies via `js-cookie`
 2. Request interceptor adds Bearer token
 3. Response interceptor handles 401 with token refresh queue
 4. Automatic logout on permanent 401
 
+### BFF Proxy (선택적)
+
+Next.js API Routes를 프록시로 사용하는 패턴:
+
+1. Axios `baseURL`을 `/api`로 설정
+2. `src/app/api/[...path]/route.ts`가 실제 서버로 요청을 전달
+3. 토큰은 HttpOnly 쿠키로 서버에서만 관리 (`js-cookie` 미사용)
+4. 클라이언트에서 토큰 값이 노출되지 않음
+
 ## Environment Variables
 
 | Item | Rule |
 | --- | --- |
-| Server URL | In `.env` file |
-| Next.js | `NEXT_PUBLIC_SERVER_URL` |
-| Vite-based | `VITE_SERVER_URL` |
+| Server URL (Direct API) | `NEXT_PUBLIC_SERVER_URL` in `.env` |
+| Server URL (BFF Proxy) | `SERVER_URL` in `.env` (서버 전용, `NEXT_PUBLIC_` 불필요) |
 
 ## Best Practices Reference
 

@@ -133,6 +133,29 @@ feat/domain-name
 
 ## 전달할 추가 이슈
 - 이슈1 (없으면 "없음")
+
+closes #이슈번호
+EOF
+)"
+```
+
+### 6. Release PR 생성 (develop → main 배포 시)
+
+- **Base branch**: `main`
+- **PR title**: `release/v버전` 형식
+- **PR body**: 해당 릴리즈에 포함된 작업 목록
+
+```bash
+gh pr create --base main --title "release/v1.0.0" --body "$(cat <<'EOF'
+## 제목
+release/v1.0.0
+
+## 작업한 내용
+- [x] feat/domain-name-1
+- [x] fix/bug-name-2
+
+## 전달할 추가 이슈
+- 없음
 EOF
 )"
 ```

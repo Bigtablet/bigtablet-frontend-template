@@ -4,13 +4,14 @@ This file provides guidance for Claude Code when working with this repository.
 
 ## Project Overview
 
-Bigtablet Insight Web is a Next.js 16 admin web application (dashboard, payments) for the Insight platform. Built with React 19, TypeScript, and Feature-Sliced Design architecture. The visual language is derived from the Insight Flutter mobile app.
+이 프로젝트는 Next.js 16 기반의 프론트엔드 웹 애플리케이션입니다.
+React 19, TypeScript, Feature-Sliced Design 아키텍처로 구성됩니다.
 
 ## Tech Stack
 
-- **Framework:** Next.js 16.1.5 with App Router
-- **UI:** React 19, @bigtablet/design-system, SCSS
-- **State Management:** TanStack React Query 5
+- **Framework:** Next.js 16 with App Router
+- **UI:** React 19, @bigtablet/design-system (또는 shadcn/ui), SCSS
+- **State Management:** TanStack React Query 5, Zustand 5
 - **HTTP Client:** Axios with interceptors (에러 메시지 유틸: `src/shared/libs/api/axios/error`)
 - **Validation:** Zod 4 schemas
 - **Linting/Formatting:** Biome
@@ -36,12 +37,6 @@ pnpm format               # Format code with Biome
 | **Class** | JS/TS Class syntax |
 | **Function** | JS/TS Function (including Arrow) |
 | **Member** | Variables/constants (no global/local distinction) |
-
-## Domain Terminology (Do Not Rename)
-
-- **Meeting:** Recorded consultation session (avoid "session")
-- **Expo:** Exhibition/event context for a meeting
-- **Client:** Unified role for visitor/counselor/manager
 
 ## Architecture (Feature-Sliced Design)
 
@@ -84,7 +79,7 @@ src/
 | Business logic hooks | `model/` folder | `use-signin.ts` |
 
 **File Split Criteria:**
-- Split when a file exceeds **100 lines**
+- Split when a file exceeds **150 lines**
 - Split when a file has **too many responsibilities**
 - Keep related functionality together when under these thresholds
 
@@ -93,16 +88,27 @@ src/
 | Item | Rule |
 | --- | --- |
 | Server URL | In `.env` file |
-| Next.js | `NEXT_PUBLIC_SERVER_URL` |
+| Next.js | `NEXT_PUBLIC_SERVER_URL` 또는 BFF `/api` |
 | TypeScript | Strict mode, path alias `src/*` |
 | Biome | Tabs (4 spaces width), 100 char line width |
 
 ## Authentication Flow
 
+### Direct API (기본)
+
 1. Tokens stored in cookies via `js-cookie`
 2. Request interceptor adds Bearer token
 3. Response interceptor handles 401 with token refresh queue
 4. Automatic logout on permanent 401
+
+### BFF Proxy (선택적)
+
+BFF(Backend for Frontend) 패턴을 사용할 경우:
+
+1. Axios `baseURL`을 `/api`로 설정 (브라우저 → Next.js API Routes)
+2. Next.js API Routes가 실제 서버로 프록시
+3. 토큰은 HttpOnly 쿠키로 서버에서 관리 (`js-cookie` 미사용)
+4. 브라우저에서 토큰이 노출되지 않음
 
 ## Detailed Documentation
 
@@ -153,3 +159,4 @@ src/
   - 없음
   ```
 - **PR 제목 = 브랜치명** (설명문 아님, 예: `fix/detail-page-pagination`)
+- **Release PR**: `develop → main` 배포 시 title = `release/v버전`, base = `main`
