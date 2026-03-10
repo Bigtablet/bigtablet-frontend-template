@@ -1,6 +1,9 @@
 {
 	"name": "__PROJECT_NAME__",
 	"private": true,
+	"engines": {
+		"node": ">=24"
+	},
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -17,6 +20,7 @@
 		"react": "19.2.4",
 		"react-dom": "19.2.4",
 		"sass": "^1.97.3",
+		"zustand": "^5.0.11",
 		"zod": "^4.1.13"
 	},
 	"devDependencies": {
