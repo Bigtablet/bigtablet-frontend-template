@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type ReactNode, useState } from "react";
 import { Toaster } from "sonner";
 
+import { createMutationCache } from "src/shared/libs/api/query/mutation-cache";
 import { ModalRenderer } from "src/shared/libs/modal";
 
 type ProviderProps = { children: ReactNode };
@@ -25,6 +26,7 @@ const Providers = ({ children }: ProviderProps) => {
 	const [queryClient] = useState(
 		() =>
 			new QueryClient({
+				mutationCache: createMutationCache(),
 				defaultOptions: {
 					queries: {
 						staleTime: 1000 * 30,
