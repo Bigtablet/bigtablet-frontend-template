@@ -26,6 +26,7 @@
     "@clack/prompts": "^0.9.0"
   },
   "devDependencies": {
+    "@types/node": "^24",
     "tsup": "^8.5.0",
     "typescript": "^5.0.0"
   },
