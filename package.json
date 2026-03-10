@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.2.0",
+  "version": "1.2.0",
   "type": "module",
   "description": "Bigtablet Next.js frontend template",
   "bin": {
@@ -26,7 +26,13 @@
     "@clack/prompts": "^0.9.0"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.1",
+    "@semantic-release/npm": "^13.1.1",
     "@types/node": "^24",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "semantic-release": "^25.0.1",
     "tsup": "^8.5.0",
     "typescript": "^5.0.0"
   },
