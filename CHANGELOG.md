@@ -1,3 +1,14 @@
+# [1.4.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.3.0...1.4.0) (2026-03-10)
+
+
+### Features
+
+* add config files to shadcn template ([d082338](https://github.com/Bigtablet/bigtablet-frontend-template/commit/d08233829a233e75571d8815fe93adba42d48848))
+* add docs and agent skills to shadcn template ([11e4387](https://github.com/Bigtablet/bigtablet-frontend-template/commit/11e4387cb1b8da997c362bb79097e80d8fa3ee1b))
+* add Pretendard fonts and logo assets to shadcn template ([cad5b3a](https://github.com/Bigtablet/bigtablet-frontend-template/commit/cad5b3a94e49af2254b2375c2135aa1d57bed3ff))
+* add shared libs, hooks, schema and entities to shadcn template ([aeb0ae9](https://github.com/Bigtablet/bigtablet-frontend-template/commit/aeb0ae9fc91297b4133a725ef5de6d7dc2b8274f))
+* update app and widgets layers for shadcn template ([a2edd3f](https://github.com/Bigtablet/bigtablet-frontend-template/commit/a2edd3fb8ee1308e180e1846dc2ba25bfd600503))
+
 # [1.3.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.2.0...1.3.0) (2026-03-10)
 
 
