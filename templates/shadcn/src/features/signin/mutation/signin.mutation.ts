@@ -9,6 +9,6 @@ import { AuthMutationKeys } from "src/features/signin/mutation/keys";
 export const useSigninMutation = () => {
 	return useMutation({
 		mutationKey: AuthMutationKeys.signin,
-		mutationFn: (body: SigninSchema) => signinApi(body),
+		mutationFn: signinApi,
 	});
 };

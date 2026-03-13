@@ -49,7 +49,7 @@ const getTemplateDirectory = (
 	return path.resolve(
 		cliRootDirectory,
 		"templates",
-		designSystemChoice === "design-system" ? "design-system" : "shadcn",
+		designSystemChoice,
 	);
 };
 
