@@ -1,3 +1,11 @@
+## [1.5.1](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.5.0...1.5.1) (2026-03-13)
+
+
+### Bug Fixes
+
+* apply code review feedback from PR [#69](https://github.com/Bigtablet/bigtablet-frontend-template/issues/69) ([426d506](https://github.com/Bigtablet/bigtablet-frontend-template/commit/426d506009658cbd3f14a54a683e0f4b43934ab8))
+* simplify getTemplateDirectory and useSigninMutation per review ([08891f9](https://github.com/Bigtablet/bigtablet-frontend-template/commit/08891f91749fe6ffad55587ac1854e8d45f252f0))
+
 # [1.5.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.4.0...1.5.0) (2026-03-13)
 
 
