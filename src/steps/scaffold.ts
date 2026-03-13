@@ -5,22 +5,6 @@ import { fileURLToPath } from "node:url";
 import type { DesignSystemChoice } from "src/steps/prompt";
 import type { PackageManagerInfo } from "src/utils/package-manager";
 
-/** shadcn 선택 시 template/package.json에 추가할 의존성 */
-const SHADCN_ADDITIONAL_DEPENDENCIES: Record<string, string> = {
-	tailwindcss: "^4.0.0",
-	"class-variance-authority": "^0.7.1",
-	clsx: "^2.1.1",
-	"tailwind-merge": "^3.0.0",
-	"lucide-react": "^0.400.0",
-	sonner: "^2.0.7",
-};
-
-/** shadcn 선택 시 template/package.json에서 제거할 의존성 */
-const SHADCN_REMOVED_DEPENDENCIES: ReadonlyArray<string> = [
-	"@bigtablet/design-system",
-	"sass",
-];
-
 const GITIGNORE_CONTENT = [
 	"node_modules/",
 	".next/",
@@ -50,44 +34,35 @@ const getCliRootDirectory = (): string => {
 
 /**
  * @description
- * shadcn 선택 시 package.json 의존성을 수정합니다.
- * design-system 관련 패키지를 제거하고 Tailwind/shadcn 패키지를 추가합니다.
+ * 선택한 디자인 시스템에 해당하는 템플릿 디렉토리 경로를 반환합니다.
  *
- * @param packageJsonPath - 수정할 package.json 파일 경로
+ * templates/design-system/ 또는 templates/shadcn/ 중 하나를 반환합니다.
+ *
+ * @param cliRootDirectory - CLI 패키지 루트 경로
  * @param designSystemChoice - 사용자가 선택한 디자인 시스템
+ * @returns 템플릿 디렉토리 절대 경로
  */
-const patchPackageJsonDependencies = (
-	packageJsonPath: string,
+const getTemplateDirectory = (
+	cliRootDirectory: string,
 	designSystemChoice: DesignSystemChoice,
-): void => {
-	if (designSystemChoice === "design-system") return;
-
-	const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
-
-	for (const removedDependency of SHADCN_REMOVED_DEPENDENCIES) {
-		delete packageJson.dependencies[removedDependency];
-	}
-
-	packageJson.dependencies = {
-		...packageJson.dependencies,
-		...SHADCN_ADDITIONAL_DEPENDENCIES,
-	};
-
-	fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, "\t") + "\n");
+): string => {
+	const templateDirectoryName =
+		designSystemChoice === "design-system" ? "design-system" : "shadcn";
+	return path.resolve(cliRootDirectory, "templates", templateDirectoryName);
 };
 
 /**
  * @description
  * 프로젝트를 스캐폴딩합니다.
  *
+ * 각 디자인 시스템별 독립 템플릿(templates/{choice}/)을 그대로 복사합니다.
+ *
  * 실행 순서:
- * 1. base template(template/) 전체 복사
- * 2. 디자인 시스템 오버레이 적용 (shadcn 선택 시 templates/shadcn/ 덮어쓰기)
- * 3. .gitignore 생성
- * 4. .env.example 생성
- * 5. package.json 프로젝트명 치환 (__PROJECT_NAME__ → projectName)
- * 6. packageManager 필드 기록
- * 7. 의존성 패치 (shadcn 선택 시)
+ * 1. 선택된 디자인 시스템의 템플릿 전체 복사
+ * 2. .gitignore 생성
+ * 3. .env.example 생성
+ * 4. package.json 프로젝트명 치환 (__PROJECT_NAME__ → projectName)
+ * 5. packageManager 필드 기록
  *
  * @param projectName - 생성할 프로젝트 이름
  * @param designSystemChoice - 선택된 디자인 시스템
@@ -101,14 +76,9 @@ export const scaffoldProject = (
 ): string => {
 	const targetDirectory = path.resolve(process.cwd(), projectName);
 	const cliRootDirectory = getCliRootDirectory();
+	const templateDirectory = getTemplateDirectory(cliRootDirectory, designSystemChoice);
 
-	fs.cpSync(path.resolve(cliRootDirectory, "template"), targetDirectory, { recursive: true });
-
-	if (designSystemChoice === "shadcn") {
-		fs.cpSync(path.resolve(cliRootDirectory, "templates/shadcn"), targetDirectory, {
-			recursive: true,
-		});
-	}
+	fs.cpSync(templateDirectory, targetDirectory, { recursive: true });
 
 	fs.writeFileSync(path.join(targetDirectory, ".gitignore"), GITIGNORE_CONTENT);
 	fs.writeFileSync(path.join(targetDirectory, ".env.example"), "NEXT_PUBLIC_SERVER_URL=\n");
@@ -122,8 +92,6 @@ export const scaffoldProject = (
 		packageJson.packageManager = `${packageManagerInfo.name}@${packageManagerInfo.version}`;
 		fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, "\t") + "\n");
 	}
-
-	patchPackageJsonDependencies(packageJsonPath, designSystemChoice);
 
 	return targetDirectory;
 };
