@@ -1,3 +1,12 @@
+# [1.5.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.4.0...1.5.0) (2026-03-13)
+
+
+### Features
+
+* add missing shadcn template files for claude settings and signin mutation ([9fea864](https://github.com/Bigtablet/bigtablet-frontend-template/commit/9fea8647b703a79e7bf4c245f2511174d1bdad53))
+* move template/ to templates/design-system/ as independent template ([0c13900](https://github.com/Bigtablet/bigtablet-frontend-template/commit/0c13900990b9ce95aed34cb3c41fa06141743bd5))
+* simplify scaffold logic for independent template directories ([863fa7e](https://github.com/Bigtablet/bigtablet-frontend-template/commit/863fa7e943ffe9802a84fde1f2973251cd22b640))
+
 # [1.4.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.3.0...1.4.0) (2026-03-10)
 
 
