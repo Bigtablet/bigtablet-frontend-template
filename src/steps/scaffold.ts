@@ -46,9 +46,11 @@ const getTemplateDirectory = (
 	cliRootDirectory: string,
 	designSystemChoice: DesignSystemChoice,
 ): string => {
-	const templateDirectoryName =
-		designSystemChoice === "design-system" ? "design-system" : "shadcn";
-	return path.resolve(cliRootDirectory, "templates", templateDirectoryName);
+	return path.resolve(
+		cliRootDirectory,
+		"templates",
+		designSystemChoice === "design-system" ? "design-system" : "shadcn",
+	);
 };
 
 /**
