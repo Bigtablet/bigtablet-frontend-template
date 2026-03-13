@@ -26,8 +26,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 | Label | Description |
 | --- | --- |
 | `feat` | 추가 기능 개발 / 새로운 코드 추가 |
-| `fix` | 기능/코드 수정 |
-| `bug` | 버그/에러 수정 |
+| `fix` | 버그/에러 수정, 기능/코드 수정 |
 | `merge` | 브랜치 병합 |
 | `deploy` | 프로젝트 배포 / 관련 문서 작업 |
 | `docs` | 문서 추가/수정 |
