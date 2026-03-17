@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.5.1...1.5.2) (2026-03-17)
+
+
+### Bug Fixes
+
+* use angle brackets for commit message format placeholder ([70c6343](https://github.com/Bigtablet/bigtablet-frontend-template/commit/70c6343dc2b3cd0fa7fb2f79307b56edb3fb8375))
+
 ## [1.5.1](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.5.0...1.5.1) (2026-03-13)
 
 
