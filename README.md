@@ -107,18 +107,30 @@ bigtablet-frontend-template/
 │   ├── index.ts                # 진입점
 │   ├── steps/
 │   │   ├── prompt.ts           # @clack/prompts 대화형 입력
-│   │   ├── scaffold.ts         # 파일 복사 + 패키지 패칭
+│   │   ├── scaffold.ts         # 템플릿 복사 + 프로젝트 설정
 │   │   └── install.ts          # 의존성 설치
 │   └── utils/
 │       └── package-manager.ts  # 패키지 매니저 감지
 ├── bin/                        # 컴파일된 CLI (tsup 출력)
-├── template/                   # @bigtablet/design-system 기본 템플릿
-└── templates/
-    └── shadcn/                 # shadcn/ui 오버레이 (다른 파일만 포함)
+├── templates/
+│   ├── design-system/          # @bigtablet/design-system 템플릿 (독립)
+│   └── shadcn/                 # shadcn/ui 템플릿 (독립)
+├── commitlint.config.mjs       # 커밋 메시지 린트 규칙
+└── .husky/                     # Git 훅 (commitlint 연동)
 ```
 
-`templates/shadcn/`는 `template/`과 다른 파일만 포함합니다.
-scaffold.ts는 shadcn 선택 시 기본 템플릿 위에 shadcn 오버레이를 덮어씌웁니다.
+각 템플릿은 독립적인 완전한 Next.js 프로젝트입니다.
+scaffold.ts는 선택된 디자인 시스템에 해당하는 템플릿 디렉터리를 통째로 복사합니다.
+
+### 커밋 컨벤션
+
+commitlint + Husky를 통해 커밋 메시지 형식을 강제합니다.
+
+```
+<type>: <subject>
+```
+
+허용 타입: `feat`, `fix`, `merge`, `deploy`, `docs`, `delete`, `note`, `style`, `config`, `etc`, `tada`
 
 ---
 
