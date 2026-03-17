@@ -127,7 +127,7 @@ scaffold.ts는 선택된 디자인 시스템에 해당하는 템플릿 디렉터
 commitlint + Husky를 통해 커밋 메시지 형식을 강제합니다.
 
 ```
-type: subject
+<type>: <subject>
 ```
 
 허용 타입: `feat`, `fix`, `merge`, `deploy`, `docs`, `delete`, `note`, `style`, `config`, `etc`, `tada`
