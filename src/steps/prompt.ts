@@ -43,7 +43,7 @@ export const runPrompts = async (initialProjectName?: string): Promise<ProjectCo
 		message: "프로젝트 이름을 입력하세요:",
 		placeholder: "my-app",
 		initialValue: initialProjectName,
-		validate: (value) => {
+		validate: (value = "") => {
 			if (!value.trim()) return "프로젝트 이름이 필요합니다.";
 			if (fs.existsSync(path.resolve(process.cwd(), value))) {
 				return `"${value}" 디렉토리가 이미 존재합니다.`;
