@@ -79,18 +79,13 @@ const useSignin = () => {
 
 			const redirect = searchParams.get("redirect");
 
-			// Validate redirect URL to prevent open redirects
-			if (redirect && !redirect.startsWith("/")) {
+			// Validate redirect URL to prevent open redirects.
+			// It must be a relative path starting with a single '/'.
+			if (redirect && redirect.startsWith("/") && !redirect.startsWith("//")) {
+				router.replace(redirect);
+			} else {
 				router.replace("/main");
-				return;
 			}
-
-			if (redirect && redirect.includes("//")) {
-				router.replace("/main");
-				return;
-			}
-
-			router.replace(redirect || "/main");
 		} catch {
 			setErrors({
 				email: "",

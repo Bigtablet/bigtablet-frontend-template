@@ -77,7 +77,7 @@ const useSignin = () => {
 
 				const redirectPath = searchParams.get("redirect") ?? "/main";
 				// Validate redirect URL to prevent open redirects
-				if (redirectPath.startsWith("/") && !redirectPath.includes("//")) {
+				if (redirectPath.startsWith("/") && !redirectPath.startsWith("//")) {
 					router.replace(redirectPath);
 				} else {
 					router.replace("/main");

@@ -20,7 +20,7 @@ export const postGcpUploadApi = async (file: File, signal?: AbortSignal): Promis
 
 	const uploadedUrl = response.data?.data;
 	if (typeof uploadedUrl !== "string") {
-		return { data: "" };
+		throw new Error("Invalid GCP upload response: URL is not a string.");
 	}
 
 	return { data: uploadedUrl };
