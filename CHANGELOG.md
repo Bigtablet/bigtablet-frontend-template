@@ -1,3 +1,17 @@
+# [1.6.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.5.2...1.6.0) (2026-03-20)
+
+
+### Bug Fixes
+
+* apply code review feedback from PR [#77](https://github.com/Bigtablet/bigtablet-frontend-template/issues/77) ([27ecc2c](https://github.com/Bigtablet/bigtablet-frontend-template/commit/27ecc2ccc0a36b83b8960eed11b4ae8ecee8834d))
+* fix pnpm version in deploy workflow and package.json ([014c19a](https://github.com/Bigtablet/bigtablet-frontend-template/commit/014c19a41f24a036654fca35e2542023351584fd))
+* handle undefined value in clack prompts validate callback ([ae627a6](https://github.com/Bigtablet/bigtablet-frontend-template/commit/ae627a664c4b576281ac807a4872b382ac8e6244))
+
+
+### Features
+
+* improve template app pages with JSDoc and welcome content ([91bed66](https://github.com/Bigtablet/bigtablet-frontend-template/commit/91bed66f5ada639075de62ed9d54eac0ceb4dd3f))
+
 ## [1.5.2](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.5.1...1.5.2) (2026-03-17)
 
 
