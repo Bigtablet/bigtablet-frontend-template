@@ -1,7 +1,7 @@
 import axios, { type AxiosError, type AxiosRequestConfig } from "axios";
 
-import { refreshApi } from "src/entities/signin/api/signin.api";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/signin/constants/signin.constants";
+import { refreshApi } from "src/entities/sign-in/api/sign-in.api";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/sign-in/constants/sign-in.constants";
 import Token from "src/shared/libs/api/cookie";
 import { BigtabletAxios } from "./index";
 import { isRetryableStatusCode, retryWithExponentialBackoff } from "./retry.util";

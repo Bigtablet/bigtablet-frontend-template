@@ -1,10 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import useSignin from "src/features/signin/model/signin.hook";
+import useSignin from "src/features/sign-in/model/sign-in.hook";
 import styles from "./style.module.scss";
 import { Button, TextField } from "@bigtablet/design-system";
 
+/**
+ * @description
+ * 로그인 페이지 컴포넌트입니다. 이메일과 비밀번호를 입력받아 로그인 요청을 처리합니다.
+ */
 const Signin = () => {
 	const { signinData, errors, handleSigninData, handleKeyDown, submitSigninData, isLoading } =
 		useSignin();
