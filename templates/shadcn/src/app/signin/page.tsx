@@ -1,6 +1,6 @@
 "use client";
 
-import useSignin from "src/features/signin/model/signin.hook";
+import useSignin from "src/features/sign-in/model/sign-in.hook";
 
 /**
  * @description

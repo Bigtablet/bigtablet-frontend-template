@@ -4,9 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/signin/constants/signin.constants";
-import type { SigninSchema } from "src/entities/signin/schema/signin.schema";
-import { useSigninMutation } from "src/features/signin/mutation/signin.mutation";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/sign-in/constants/sign-in.constants";
+import type { SigninSchema } from "src/entities/sign-in/schema/sign-in.schema";
+import { useSigninMutation } from "src/features/sign-in/mutation/sign-in.mutation";
 import Token from "src/shared/libs/api/cookie";
 
 type FieldErrors = Partial<Record<keyof SigninSchema, string>>;
@@ -52,16 +52,17 @@ const useSignin = () => {
 	}, []);
 
 	const submitSigninForm = useCallback(() => {
-		const validationErrors = validateSigninForm(signinFormData);
-		if (validationErrors.email || validationErrors.password) {
-			setFieldErrors(validationErrors);
-			toast.info(validationErrors.email ?? validationErrors.password);
+		const validationResult = validateSigninForm(signinFormData);
+		if (validationResult.email || validationResult.password) {
+			setFieldErrors(validationResult);
+			toast.info(validationResult.email ?? validationResult.password);
 			return;
 		}
 
-		signinMutation.mutate(signinFormData, {
-			onSuccess: (response) => {
-				const tokenPayload = response as TokenPayload;
+		(async () => {
+			try {
+				const authResponse = await signinMutation.mutateAsync(signinFormData);
+				const tokenPayload = authResponse as TokenPayload;
 				const accessToken = tokenPayload.accessToken ?? tokenPayload.data?.accessToken;
 				const refreshToken = tokenPayload.refreshToken ?? tokenPayload.data?.refreshToken;
 
@@ -73,13 +74,19 @@ const useSignin = () => {
 				Token.setToken(ACCESS_TOKEN, accessToken);
 				Token.setToken(REFRESH_TOKEN, refreshToken);
 				toast.success("로그인에 성공했습니다.");
-				router.replace(searchParams.get("redirect") ?? "/main");
-			},
-			onError: () => {
+
+				const redirectPath = searchParams.get("redirect") ?? "/main";
+				// Validate redirect URL to prevent open redirects
+				if (redirectPath.startsWith("/") && !redirectPath.includes("//")) {
+					router.replace(redirectPath);
+				} else {
+					router.replace("/main");
+				}
+			} catch {
 				setFieldErrors({ email: "", password: "이메일 또는 비밀번호가 올바르지 않습니다." });
 				toast.error("이메일 또는 비밀번호가 올바르지 않습니다.");
-			},
-		});
+			}
+		})();
 	}, [signinFormData, signinMutation, router, searchParams, validateSigninForm]);
 
 	const handleKeyboardEnterSubmit = useCallback(
