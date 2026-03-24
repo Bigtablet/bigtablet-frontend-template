@@ -1,3 +1,13 @@
+## [1.6.1](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.6.0...1.6.1) (2026-03-24)
+
+
+### Bug Fixes
+
+* move GCP mutation hook from query/ to mutation/ directory ([52b4f47](https://github.com/Bigtablet/bigtablet-frontend-template/commit/52b4f4745608fcc4881edd022fb629106ac0e196))
+* rename hook files from .hook.ts to use-{name}.ts convention ([4619fdf](https://github.com/Bigtablet/bigtablet-frontend-template/commit/4619fdfa73399351b8e6f70a621d7533ab2105ce))
+* rename signin route directory to sign-in for kebab-case convention ([8f2f36f](https://github.com/Bigtablet/bigtablet-frontend-template/commit/8f2f36f17e7449bd2e3f5e37bd5b60116507a408))
+* wrap children with ToastProvider in provider component ([629800a](https://github.com/Bigtablet/bigtablet-frontend-template/commit/629800ada621ef1ff1f5400ccea27d249a378bbe))
+
 # [1.6.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.5.2...1.6.0) (2026-03-20)
 
 
