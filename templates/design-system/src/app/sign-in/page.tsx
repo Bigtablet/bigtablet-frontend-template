@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import useSignin from "src/features/sign-in/model/sign-in.hook";
+import useSignin from "src/features/sign-in/model/use-sign-in";
 import styles from "./style.module.scss";
 import { Button, TextField } from "@bigtablet/design-system";
 
