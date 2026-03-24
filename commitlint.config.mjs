@@ -8,6 +8,7 @@ export default {
 			[
 				"feat",
 				"fix",
+				"bug",
 				"merge",
 				"deploy",
 				"docs",
@@ -15,6 +16,8 @@ export default {
 				"note",
 				"style",
 				"config",
+				"chore",
+				"test",
 				"etc",
 				"tada",
 			],

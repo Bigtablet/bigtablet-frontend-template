@@ -1,4 +1,4 @@
-import { useGcpUploadMutation } from "src/shared/libs/api/gcp/query/gcp.query";
+import { useGcpUploadMutation } from "src/shared/libs/api/gcp/mutation/gcp.mutation";
 
 /**
  * @description

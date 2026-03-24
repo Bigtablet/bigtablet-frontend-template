@@ -45,10 +45,11 @@ const Providers = ({ children }: ProviderProps) => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<AlertProvider>
-				<ToastProvider />
-				<ToastBridgeProvider />
-				<ModalRenderer />
-				{children}
+				<ToastProvider>
+					<ToastBridgeProvider />
+					<ModalRenderer />
+					{children}
+				</ToastProvider>
 			</AlertProvider>
 		</QueryClientProvider>
 	);
