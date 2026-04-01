@@ -57,14 +57,15 @@ export const scaffoldProject = async (
 		fs.writeFileSync(path.join(targetDirectory, ".env.example"), "NEXT_PUBLIC_SERVER_URL=\n");
 
 		const packageJsonPath = path.join(targetDirectory, "package.json");
-		const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
-		fs.writeFileSync(packageJsonPath, packageJsonContent.replace("__PROJECT_NAME__", projectName));
+		let packageJsonContent = fs.readFileSync(packageJsonPath, "utf8").replace("__PROJECT_NAME__", projectName);
 
 		if (packageManagerInfo.version) {
-			const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+			const packageJson = JSON.parse(packageJsonContent);
 			packageJson.packageManager = `${packageManagerInfo.name}@${packageManagerInfo.version}`;
-			fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, "\t") + "\n");
+			packageJsonContent = JSON.stringify(packageJson, null, "\t") + "\n";
 		}
+
+		fs.writeFileSync(packageJsonPath, packageJsonContent);
 
 		// 템플릿별 후처리 실행 (각 템플릿이 직접 정의)
 		const template = findTemplate(templateName);
