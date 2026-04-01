@@ -1,26 +1,18 @@
 import { cancel, intro, isCancel, select, text } from "@clack/prompts";
 import fs from "node:fs";
 import path from "node:path";
-
-/**
- * @description
- * 사용자가 선택 가능한 디자인 시스템 종류입니다.
- *
- * - design-system: @bigtablet/design-system (SCSS 기반 사내 컴포넌트)
- * - shadcn: shadcn/ui (Tailwind CSS + Radix UI)
- */
-export type DesignSystemChoice = "design-system" | "shadcn";
+import { getTemplates } from "src/registry";
 
 /**
  * @description
  * CLI 프롬프트에서 수집한 프로젝트 설정을 담는 타입입니다.
  *
  * @property projectName - 생성할 프로젝트 디렉토리 이름
- * @property designSystem - 선택된 디자인 시스템
+ * @property templateName - 선택된 템플릿 이름 (registry의 TemplateDefinition.name)
  */
 export type ProjectConfig = {
 	projectName: string;
-	designSystem: DesignSystemChoice;
+	templateName: string;
 };
 
 /**
@@ -29,7 +21,7 @@ export type ProjectConfig = {
  *
  * 수집 항목:
  * 1. 프로젝트 이름 (process.argv[2]로 사전 입력 가능)
- * 2. 디자인 시스템 선택
+ * 2. 템플릿 선택 (registry에 등록된 항목을 동적으로 표시)
  *
  * Ctrl+C 또는 취소 선택 시 프로세스를 종료합니다.
  *
@@ -56,29 +48,23 @@ export const runPrompts = async (initialProjectName?: string): Promise<ProjectCo
 		process.exit(0);
 	}
 
-	const designSystem = await select({
-		message: "디자인 시스템을 선택하세요:",
-		options: [
-			{
-				value: "design-system",
-				label: "@bigtablet/design-system",
-				hint: "Bigtablet 사내 컴포넌트 (SCSS)",
-			},
-			{
-				value: "shadcn",
-				label: "shadcn/ui",
-				hint: "Tailwind CSS v4 + Radix UI",
-			},
-		],
+	const templates = getTemplates();
+	const templateName = await select({
+		message: "템플릿을 선택하세요:",
+		options: templates.map((t) => ({
+			value: t.name,
+			label: t.label,
+			hint: t.hint,
+		})),
 	});
 
-	if (isCancel(designSystem)) {
+	if (isCancel(templateName)) {
 		cancel("작업이 취소됐습니다.");
 		process.exit(0);
 	}
 
 	return {
 		projectName: projectName as string,
-		designSystem: designSystem as DesignSystemChoice,
+		templateName: templateName as string,
 	};
 };

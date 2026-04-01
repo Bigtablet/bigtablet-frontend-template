@@ -35,9 +35,9 @@ const main = async (): Promise<void> => {
 
 	const packageManagerInfo = detectPackageManager();
 
-	const targetDirectory = scaffoldProject(
+	const targetDirectory = await scaffoldProject(
 		projectConfig.projectName,
-		projectConfig.designSystem,
+		projectConfig.templateName,
 		packageManagerInfo,
 	);
 
