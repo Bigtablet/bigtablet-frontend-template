@@ -1,3 +1,17 @@
+# [1.7.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.6.2...1.7.0) (2026-04-02)
+
+
+### Bug Fixes
+
+* add template validation and scaffold error cleanup ([07cb116](https://github.com/Bigtablet/bigtablet-frontend-template/commit/07cb11608766ed0923b033090ad266e5234e92f0))
+* consolidate package.json I/O into single read-write pass ([92c38aa](https://github.com/Bigtablet/bigtablet-frontend-template/commit/92c38aa10abd5119b188cdc85f8b4e413232b77c))
+* use JSON object model for package.json project name update ([23bd8c4](https://github.com/Bigtablet/bigtablet-frontend-template/commit/23bd8c48ec85a060470a65097615ec2813585611))
+
+
+### Features
+
+* introduce template registry for dynamic template management ([7af1b11](https://github.com/Bigtablet/bigtablet-frontend-template/commit/7af1b11814d3b0465dabe45a6a464ce88f1b1951))
+
 ## [1.6.2](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.6.1...1.6.2) (2026-04-01)
 
 ## [1.6.1](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.6.0...1.6.1) (2026-03-24)
