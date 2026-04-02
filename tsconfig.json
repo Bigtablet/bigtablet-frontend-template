@@ -7,7 +7,7 @@
 		"types": ["node"],
 		"strict": true,
 		"skipLibCheck": true,
-		"baseUrl": ".",
+		"noEmit": true,
 		"paths": {
 			"src/*": ["./src/*"]
 		}

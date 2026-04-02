@@ -1,8 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-import type { DesignSystemChoice } from "src/steps/prompt";
+import { findTemplate, getTemplateDir, templateExists } from "src/registry";
 import type { PackageManagerInfo } from "src/utils/package-manager";
 
 const GITIGNORE_CONTENT = [
@@ -23,77 +21,60 @@ const GITIGNORE_CONTENT = [
 ].join("\n");
 
 /**
- * @description
- * CLI 패키지의 루트 디렉토리 절대 경로를 반환합니다.
- * tsup 빌드 후 bin/ 에 위치한 파일 기준으로 두 단계 상위가 루트입니다.
- */
-const getCliRootDirectory = (): string => {
-	const currentFilename = fileURLToPath(import.meta.url);
-	return path.resolve(path.dirname(currentFilename), "..");
-};
-
-/**
- * @description
- * 선택한 디자인 시스템에 해당하는 템플릿 디렉토리 경로를 반환합니다.
- *
- * templates/design-system/ 또는 templates/shadcn/ 중 하나를 반환합니다.
- *
- * @param cliRootDirectory - CLI 패키지 루트 경로
- * @param designSystemChoice - 사용자가 선택한 디자인 시스템
- * @returns 템플릿 디렉토리 절대 경로
- */
-const getTemplateDirectory = (
-	cliRootDirectory: string,
-	designSystemChoice: DesignSystemChoice,
-): string => {
-	return path.resolve(
-		cliRootDirectory,
-		"templates",
-		designSystemChoice,
-	);
-};
-
-/**
- * @description
  * 프로젝트를 스캐폴딩합니다.
  *
- * 각 디자인 시스템별 독립 템플릿(templates/{choice}/)을 그대로 복사합니다.
- *
  * 실행 순서:
- * 1. 선택된 디자인 시스템의 템플릿 전체 복사
+ * 1. 선택된 템플릿의 파일 전체 복사 (templates/{templateName}/)
  * 2. .gitignore 생성
  * 3. .env.example 생성
  * 4. package.json 프로젝트명 치환 (__PROJECT_NAME__ → projectName)
  * 5. packageManager 필드 기록
+ * 6. 템플릿의 afterScaffold() 실행 (템플릿별 후처리)
  *
  * @param projectName - 생성할 프로젝트 이름
- * @param designSystemChoice - 선택된 디자인 시스템
- * @param packageManagerInfo - 감지된 패키지 매니저 정보
+ * @param templateName - 선택된 템플릿 이름 (registry 기준)
+ * @param packageManagerInfo - 감지된 패키지 매니저 정보 (이름, 버전, 명령어)
  * @returns 생성된 프로젝트 디렉토리의 절대 경로
+ * @throws Error 템플릿을 찾을 수 없거나 파일 시스템 작업 실패 시
  */
-export const scaffoldProject = (
+export const scaffoldProject = async (
 	projectName: string,
-	designSystemChoice: DesignSystemChoice,
+	templateName: string,
 	packageManagerInfo: PackageManagerInfo,
-): string => {
-	const targetDirectory = path.resolve(process.cwd(), projectName);
-	const cliRootDirectory = getCliRootDirectory();
-	const templateDirectory = getTemplateDirectory(cliRootDirectory, designSystemChoice);
-
-	fs.cpSync(templateDirectory, targetDirectory, { recursive: true });
-
-	fs.writeFileSync(path.join(targetDirectory, ".gitignore"), GITIGNORE_CONTENT);
-	fs.writeFileSync(path.join(targetDirectory, ".env.example"), "NEXT_PUBLIC_SERVER_URL=\n");
-
-	const packageJsonPath = path.join(targetDirectory, "package.json");
-	const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
-	fs.writeFileSync(packageJsonPath, packageJsonContent.replace("__PROJECT_NAME__", projectName));
-
-	if (packageManagerInfo.version) {
-		const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
-		packageJson.packageManager = `${packageManagerInfo.name}@${packageManagerInfo.version}`;
-		fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, "\t") + "\n");
+): Promise<string> => {
+	if (!templateExists(templateName)) {
+		throw new Error(`템플릿 "${templateName}"을(를) 찾을 수 없습니다.`);
 	}
 
-	return targetDirectory;
+	const targetDirectory = path.resolve(process.cwd(), projectName);
+
+	try {
+		const templateDirectory = getTemplateDir(templateName);
+
+		fs.cpSync(templateDirectory, targetDirectory, { recursive: true });
+
+		fs.writeFileSync(path.join(targetDirectory, ".gitignore"), GITIGNORE_CONTENT);
+		fs.writeFileSync(path.join(targetDirectory, ".env.example"), "NEXT_PUBLIC_SERVER_URL=\n");
+
+		const packageJsonPath = path.join(targetDirectory, "package.json");
+		const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+		packageJson.name = projectName;
+
+		if (packageManagerInfo.version) {
+			packageJson.packageManager = `${packageManagerInfo.name}@${packageManagerInfo.version}`;
+		}
+
+		fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, "\t") + "\n");
+
+		// 템플릿별 후처리 실행 (각 템플릿이 직접 정의)
+		const template = findTemplate(templateName);
+		if (template?.afterScaffold) {
+			await template.afterScaffold(targetDirectory);
+		}
+
+		return targetDirectory;
+	} catch (error) {
+		fs.rmSync(targetDirectory, { recursive: true, force: true });
+		throw error;
+	}
 };
