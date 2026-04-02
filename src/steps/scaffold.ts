@@ -21,7 +21,6 @@ const GITIGNORE_CONTENT = [
 ].join("\n");
 
 /**
- * @description
  * 프로젝트를 스캐폴딩합니다.
  *
  * 실행 순서:
@@ -34,8 +33,9 @@ const GITIGNORE_CONTENT = [
  *
  * @param projectName - 생성할 프로젝트 이름
  * @param templateName - 선택된 템플릿 이름 (registry 기준)
- * @param packageManagerInfo - 감지된 패키지 매니저 정보
+ * @param packageManagerInfo - 감지된 패키지 매니저 정보 (이름, 버전, 명령어)
  * @returns 생성된 프로젝트 디렉토리의 절대 경로
+ * @throws Error 템플릿을 찾을 수 없거나 파일 시스템 작업 실패 시
  */
 export const scaffoldProject = async (
 	projectName: string,
@@ -57,15 +57,14 @@ export const scaffoldProject = async (
 		fs.writeFileSync(path.join(targetDirectory, ".env.example"), "NEXT_PUBLIC_SERVER_URL=\n");
 
 		const packageJsonPath = path.join(targetDirectory, "package.json");
-		let packageJsonContent = fs.readFileSync(packageJsonPath, "utf8").replace("__PROJECT_NAME__", projectName);
+		const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+		packageJson.name = projectName;
 
 		if (packageManagerInfo.version) {
-			const packageJson = JSON.parse(packageJsonContent);
 			packageJson.packageManager = `${packageManagerInfo.name}@${packageManagerInfo.version}`;
-			packageJsonContent = JSON.stringify(packageJson, null, "\t") + "\n";
 		}
 
-		fs.writeFileSync(packageJsonPath, packageJsonContent);
+		fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, "\t") + "\n");
 
 		// 템플릿별 후처리 실행 (각 템플릿이 직접 정의)
 		const template = findTemplate(templateName);
