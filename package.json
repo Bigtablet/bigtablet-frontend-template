@@ -40,5 +40,14 @@
     "typescript": "^6.0.2"
   },
   "packageManager": "pnpm@10.32.0",
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "overrides": {
+      "handlebars": ">=4.7.9",
+      "lodash": ">=4.18.0",
+      "lodash-es": ">=4.18.0",
+      "undici": ">=7.24.0",
+      "picomatch": ">=4.0.4"
+    }
+  }
 }
