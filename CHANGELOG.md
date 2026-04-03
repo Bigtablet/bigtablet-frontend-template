@@ -1,3 +1,11 @@
+## [1.7.1](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.7.0...1.7.1) (2026-04-03)
+
+
+### Bug Fixes
+
+* resolve all 27 security vulnerabilities in transitive dependencies ([3e302a1](https://github.com/Bigtablet/bigtablet-frontend-template/commit/3e302a1185435ae0b5d8ec597e60b0a331f34fd3))
+* restore @clack/prompts 1.2.0 and conventionalcommits 9.3.1 ([eef77cc](https://github.com/Bigtablet/bigtablet-frontend-template/commit/eef77cc80b89b9c424dc56caa9660f07fc4d76b3))
+
 # [1.7.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.6.2...1.7.0) (2026-04-02)
 
 
