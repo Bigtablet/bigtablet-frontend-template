@@ -1,3 +1,5 @@
+## [1.7.2](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.7.1...1.7.2) (2026-04-13)
+
 ## [1.7.1](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.7.0...1.7.1) (2026-04-03)
 
 
