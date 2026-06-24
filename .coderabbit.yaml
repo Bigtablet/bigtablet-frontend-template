@@ -1,0 +1,108 @@
+# yaml-language-server: $schema=https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json
+#
+# CodeRabbit 설정 — bigtablet-frontend-template (Next.js 템플릿 스캐폴더 CLI).
+# 이 레포는 모노레포가 아니다: 루트(src/, bin/)는 CLI, 실제 앱 코드는
+# templates/{shadcn,design-system}/src/ 에 FSD 로 들어있다.
+# 규칙 출처: templates/*/CLAUDE.md, templates/*/.claude/docs/{code-style,react-patterns,design-system,git-workflow}.md
+# 리뷰는 한국어, 머지 차단은 CI 게이트가 담당(코드래빗은 권고만).
+
+language: "ko-KR"
+
+tone_instructions: >-
+  한국어로 리뷰하라. 사실·근거 위주로 간결하게. 불필요한 인사·칭찬·동의 요청 같은
+  트래킹성 문구는 쓰지 마라. 코드/커밋 메시지/PR 제목 인용은 원문 그대로 둔다.
+
+early_access: false
+
+reviews:
+  profile: "chill" # nitpick 폭주 방지. 더 깐깐히 원하면 "assertive".
+  request_changes_workflow: false # 코드래빗이 머지를 막지 않음 — CI/사람이 게이트.
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  changed_files_summary: true
+  sequence_diagrams: false
+
+  auto_review:
+    enabled: true
+    drafts: false # Draft PR 은 리뷰 안 함.
+    base_branches:
+      - "develop" # 일반 PR base
+      - "main" # 릴리스 PR base
+
+  # 리뷰 대상에서 제외할 경로(생성물·락파일·빌드 산출물·벤더 스킬 문서).
+  path_filters:
+    - "!**/pnpm-lock.yaml"
+    - "!bin/**" # tsup 빌드 산출물 (src/index.ts 에서 생성)
+    - "!**/dist/**"
+    - "!**/.next/**"
+    - "!**/coverage/**"
+    - "!**/node_modules/**"
+    - "!**/*.min.css"
+    - "!**/*.snap"
+    - "!**/.agents/**" # 벤더링된 스킬 규칙 파일
+
+  path_instructions:
+    - path: "templates/**/*.{ts,tsx}"
+      instructions: >-
+        FSD 레이어 의존 규칙을 강제하라. import 방향은 app → widgets → features →
+        entities → shared 단방향이다. 역방향 import(예: shared 가 entities 이상을
+        import)와 같은 레이어 간 peer-slice import(예: entities/A → entities/B)는 지적하라.
+        모든 컴포넌트·함수에 JSDoc(@description) 이 있는지 확인하고 없으면 지적하라.
+        정적 JSX·데이터는 모듈 스코프로 hoist 되어 매 렌더 재생성되지 않게 하라.
+        2곳 이상 반복되는 로직은 util/hook 추출을 제안하라(중복 금지, 단일 출처 원칙).
+        인증·결제·데이터 변경 같은 critical API 호출은 반드시 await 하라 — fire-and-forget
+        (await 없는 비동기 호출)은 지적하라.
+        데이터 패칭/뮤테이션은 React Query 패턴을 따르고, QueryClient 는 createDefaultQueryClient
+        를, 전역 에러/성공 토스트는 mutation-cache(meta.errorMessage / successMessage)를 쓴다.
+        재시도는 React Query 레이어(queries.retry)가 단일 소스다 — axios transport 에서 재시도
+        로직을 추가하지 마라.
+        보안: 입력은 서버에서 검증하고, 출력은 인코딩해 XSS 를 막고, 민감정보를 클라이언트에
+        노출하지 마라.
+        React: 서버/클라이언트 컴포넌트 경계를 적절히 두고("use client" 남용 금지),
+        로딩 상태는 skeleton UI 패턴을 따르라.
+        컴포넌트 파일명은 index.tsx 여야 한다.
+    - path: "templates/design-system/**/*.module.scss"
+      instructions: >-
+        하드코딩된 값(색상·간격·radius·폰트·shadow 등)은 금지다. 반드시 디자인 시스템 토큰
+        (@bigtablet/design-system/scss/token)을 써야 한다. 하드코딩 리터럴(#hex, px 매직넘버 등)을
+        발견하면 대응 토큰 사용을 제안하라.
+        토큰 이름은 v3 기준이다: 색상은 semantic 토큰($color_bg_solid, $color_text_body,
+        $color_border_default, $color_status_* 등), 간격은 숫자 스케일($spacing_8/12/16/20…),
+        shadow 는 $elevation_level1~5, 타이포는 mixin($include body_small 등)을 쓴다.
+        스타일 파일명은 style.module.scss 여야 한다.
+    - path: "templates/shadcn/**/*.{ts,tsx}"
+      instructions: >-
+        스타일링은 Tailwind CSS v4 + cn() 유틸(src/shared/libs/ui/cn.ts)을 쓴다. shadcn 컴포넌트는
+        src/shared/ui 에 두고(npx shadcn add), variant 는 class-variance-authority(cva)로 만든다.
+        토스트는 sonner 의 toast() 를 직접 호출한다(design-system 의 useToast 미사용).
+    - path: "src/**/*.ts"
+      instructions: >-
+        루트 src/ 는 스캐폴더 CLI 소스다 — FSD/React 규칙은 적용하지 마라. 템플릿 복사·치환
+        로직의 정확성, 파일시스템 에러 처리, 사용자 입력 검증, 크로스 플랫폼(경로 구분자 등)
+        안전성 위주로 리뷰하라.
+    - path: "templates/**/package.json"
+      instructions: >-
+        템플릿 매니페스트다. next/react/react-dom/@biomejs/biome 는 정확한 버전으로 핀(^ 없음)
+        되어 있어야 재현 가능하다. 핵심 의존성(Next 16 / React 19 / TypeScript 6 / @bigtablet/design-system v3)
+        의 버전 일관성을 확인하고, 메이저가 뒤처진 의존성은 지적하라.
+
+  tools:
+    biome:
+      enabled: true # 템플릿 린터/포매터(biome 2.5.1)와 정합.
+    gitleaks:
+      enabled: true # 시크릿 유출 스캔.
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "**/CLAUDE.md"
+      - "**/AGENTS.md"
+      - "**/.claude/docs/**"
+      - "**/architecture.md"
+      - "**/README.md"
