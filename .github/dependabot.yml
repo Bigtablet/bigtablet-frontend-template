@@ -3,7 +3,8 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      # dependabot은 cron("첫째주 월요일")을 지원하지 않음 — monthly = 매월 1일 실행.
+      interval: "monthly"
       time: "08:00"
       timezone: "Asia/Seoul"
     open-pull-requests-limit: 5
@@ -20,12 +21,11 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
+      interval: "monthly"
       time: "08:00"
       timezone: "Asia/Seoul"
     open-pull-requests-limit: 5
-    target-branch: "main"
+    target-branch: "develop"
     commit-message:
       prefix: "deploy"
       include: "scope"
