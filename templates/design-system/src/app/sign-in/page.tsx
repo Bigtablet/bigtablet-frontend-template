@@ -35,7 +35,7 @@ const Signin = () => {
 						onChangeAction={(value) => handleSigninData("email", value)}
 						onKeyDown={handleKeyDown}
 						error={!!errors.email}
-						helperText={errors.email}
+						supportingText={errors.email}
 					/>
 					<TextField
 						label="Password"
@@ -48,7 +48,7 @@ const Signin = () => {
 						onChangeAction={(value) => handleSigninData("password", value)}
 						onKeyDown={handleKeyDown}
 						error={!!errors.password}
-						helperText={errors.password}
+						supportingText={errors.password}
 					/>
 				</div>
 

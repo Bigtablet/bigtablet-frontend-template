@@ -603,22 +603,24 @@ const items = [
 @use "@bigtablet/design-system/scss/token" as token;
 
 .my-class {
-  padding: token.$spacing_md;       // 0.75rem
-  color: token.$color_primary;      // #000000
-  border-radius: token.$radius_md;  // 8px
-  box-shadow: token.$shadow_sm;
+  padding: token.$spacing_12;           // 12px
+  color: token.$color_text_body;        // 본문 텍스트 (light/dark 자동)
+  border-radius: token.$radius_md;      // 8px
+  box-shadow: token.$elevation_level1;
 }
 ```
 
 ### Token Reference
 
-**Spacing:** `$spacing_xs` (4px), `$spacing_sm` (8px), `$spacing_md` (12px), `$spacing_lg` (16px), `$spacing_xl` (20px), `$spacing_2xl` (24px)
+**Spacing (numeric scale, px):** `$spacing_4`, `$spacing_8`, `$spacing_12`, `$spacing_16`, `$spacing_20`, `$spacing_24`, `$spacing_32`, `$spacing_40`, `$spacing_48`
 
-**Colors:** `$color_primary`, `$color_primary_hover`, `$color_error`, `$color_success`, `$color_warning`, `$color_info`, `$color_text_primary`, `$color_text_secondary`, `$color_border`, `$color_background`
+**Colors (semantic — CSS var 기반, light/dark 자동 전환):** `$color_bg_solid`, `$color_bg_solid_dim`, `$color_text_heading`, `$color_text_body`, `$color_text_caption`, `$color_brand_primary`, `$color_border_default`, `$color_status_error`, `$color_status_success`, `$color_status_warning`, `$color_status_info`
 
-**Radius:** `$radius_sm` (6px), `$radius_md` (8px), `$radius_lg` (12px)
+**Radius:** `$radius_xs` (4px), `$radius_sm` (6px), `$radius_md` (8px), `$radius_lg` (12px), `$radius_xl` (16px), `$radius_full`
 
-**Shadows:** `$shadow_sm`, `$shadow_md`, `$shadow_lg`
+**Elevation (box-shadow):** `$elevation_level1` ~ `$elevation_level5`
+
+**Typography (mixin):** `@include token.body_small`, `body_medium`, `body_large`, `title_medium`, `heading_small`, `label_medium` 등
 
 ### Layout Mixins
 
@@ -638,14 +640,14 @@ const items = [
 @use "@bigtablet/design-system/scss/token" as token;
 
 .component {
-  padding: token.$spacing_lg;
+  padding: token.$spacing_16;
 
-  @include token.mobile {
-    padding: token.$spacing_sm;
+  @include token.compact {   // 모바일 (max-width)
+    padding: token.$spacing_8;
   }
 
-  @include token.tablet {
-    padding: token.$spacing_md;
+  @include token.medium {    // 태블릿 (max-width)
+    padding: token.$spacing_12;
   }
 }
 ```
