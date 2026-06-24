@@ -147,6 +147,7 @@ BFF(Backend for Frontend) 패턴을 사용할 경우:
   3. 구현 + 커밋 (영문)
   4. PR 생성 (title = 브랜치명, base = `develop`)
   5. PR에 `Closes #이슈번호` 추가
+  6. Review 응대 — 코멘트마다 답글 + 반영 완료 스레드 resolve
 - **PR/Issue 본문 템플릿** (자의적 변경 금지):
   ```
   ## 제목
@@ -159,4 +160,6 @@ BFF(Backend for Frontend) 패턴을 사용할 경우:
   - 없음
   ```
 - **PR 제목 = 브랜치명** (설명문 아님, 예: `fix/detail-page-pagination`)
+- **Review 응대**: 리뷰 코멘트에 답글(`gh api repos/{owner}/{repo}/pulls/<n>/comments/<id>/replies`) 후 반영 완료 스레드 resolve(GraphQL `resolveReviewThread`); 리뷰어 멘션 `gh pr edit <n> --add-reviewer <id>`. 자세히는 [git-workflow.md](.claude/docs/git-workflow.md)
+- **본인 PR 본인 머지 금지** (Approve 후 브랜치 생성자가 머지)
 - **Release PR**: `develop → main` 배포 시 title = `release/v버전`, base = `main`
