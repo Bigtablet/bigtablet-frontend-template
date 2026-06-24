@@ -4,21 +4,21 @@
   width: 100vw;
   height: 100vh;
   @include token.flex-center;
-  background-color: token.$color-background;
+  background-color: token.$color_bg_solid;
 
   .auth_container {
     @include token.flex-column-center;
-    padding: token.$spacing-lg token.$spacing-xl;
-    background-color: token.$color-background-secondary;
-    border-radius: token.$radius-lg;
-    box-shadow: token.$shadow-lg;
-    gap: token.$spacing-xl;
+    padding: token.$spacing_16 token.$spacing_20;
+    background-color: token.$color_bg_solid_dim;
+    border-radius: token.$radius_lg;
+    box-shadow: token.$elevation_level3;
+    gap: token.$spacing_20;
 
     .auth_textfield {
       @include token.flex-column-center;
       width: 100%;
-      padding: token.$spacing-sm;
-      gap: token.$spacing-md;
+      padding: token.$spacing_8;
+      gap: token.$spacing_12;
 
       a {
         color: inherit;
@@ -26,7 +26,7 @@
       }
 
       span {
-        @include token.text-sm;
+        @include token.body_small;
         cursor: pointer;
       }
     }

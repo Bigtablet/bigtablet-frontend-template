@@ -14,6 +14,6 @@ import type { Gcp } from "src/shared/libs/api/gcp/type/gcp.type";
 export const useGcpUploadMutation = (options?: UseMutationOptions<Gcp, Error, File>) =>
 	useMutation({
 		mutationKey: [Keys.gcp.upload],
-		mutationFn: postGcpUploadApi,
+		mutationFn: (file: File) => postGcpUploadApi(file),
 		...options,
 	});
