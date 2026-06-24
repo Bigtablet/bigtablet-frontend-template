@@ -105,6 +105,7 @@ node bin/create-bigtablet-frontend.js my-test-app
 bigtablet-frontend-template/
 ├── src/                        # CLI TypeScript 소스
 │   ├── index.ts                # 진입점
+│   ├── registry.ts             # 템플릿 레지스트리 (shadcn / design-system)
 │   ├── steps/
 │   │   ├── prompt.ts           # @clack/prompts 대화형 입력
 │   │   ├── scaffold.ts         # 템플릿 복사 + 프로젝트 설정
@@ -130,7 +131,7 @@ commitlint + Husky를 통해 커밋 메시지 형식을 강제합니다.
 <type>: <subject>
 ```
 
-허용 타입: `feat`, `fix`, `merge`, `deploy`, `docs`, `delete`, `note`, `style`, `config`, `etc`, `tada`
+허용 타입: `feat`, `fix`, `bug`, `merge`, `deploy`, `docs`, `delete`, `note`, `style`, `config`, `chore`, `test`, `etc`, `tada`
 
 ---
 
