@@ -4,7 +4,18 @@ import { refreshApi } from "src/entities/sign-in/api/sign-in.api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "src/entities/sign-in/constants/sign-in.constants";
 import Token from "src/shared/libs/api/cookie";
 import { BigtabletAxios } from "./index";
-import { isRetryableStatusCode, retryWithExponentialBackoff } from "./retry.util";
+
+/**
+ * @description
+ * 요청이 취소(cancel)되었을 때 발생하는 에러입니다.
+ * `Promise.resolve(null)` 대신 reject 하여 호출부가 `.data` 접근 시 NPE 가 나는 것을 방지합니다.
+ */
+export class RequestCancelledError extends Error {
+	constructor() {
+		super("Request cancelled");
+		this.name = "RequestCancelledError";
+	}
+}
 
 let isRefreshing = false;
 let refreshSubscribers: Array<(ok: boolean) => void> = [];
@@ -30,29 +41,25 @@ const subscribeRefresh = (callback: (ok: boolean) => void) => {
 
 /**
  * @description
- * Axios response interceptor.
+ * Axios response 에러 인터셉터입니다.
  *
- * - 요청 취소(CancelToken)는 조용히 무시한다.
- * - 5xx 서버 에러 발생 시 지수 백오프 방식으로 최대 2회 재시도한다.
- * - 401 에러 발생 시 refresh token으로 access token을 재발급한다.
- * - refresh 중에는 이후 요청을 구독 큐에 쌓아 순차적으로 재시도한다.
- * - refresh 실패 시 모든 토큰을 제거하고 로그인 페이지로 이동한다.
- * - 그 외 에러는 그대로 상위로 전파한다.
+ * - 요청 취소 시: `RequestCancelledError` 로 reject (호출부 `.data` 접근 NPE 방지)
+ * - 401 에러: refresh token 으로 access token 을 재발급하고 원요청을 재시도한다.
+ *   refresh 중에는 이후 요청을 큐에 쌓아 순차 재시도하고, refresh 실패 시 토큰을 정리한 뒤
+ *   `/signin` 으로 이동한다. request config 에 `skipUnauthorizedRedirect: true` 면 리다이렉트를 건너뛴다.
+ * - 그 외 에러는 그대로 전파 (API util 에서 normalize)
+ *
+ * 재시도(네트워크 오류·5xx)는 transport(axios) 가 아니라 React Query 레이어
+ * (`createDefaultQueryClient` 의 `queries.retry`)가 담당한다 — query(GET)만 재시도하므로
+ * 비멱등 mutation 의 중복 처리(중복 결제 등)를 원천 차단한다.
  */
 export const responseErrorInterceptor = async (error: AxiosError) => {
 	const originalRequest =
-		(error.config as AxiosRequestConfig & { _retry?: boolean; _retryCount?: number }) ??
-		undefined;
+		(error.config as AxiosRequestConfig & { _retry?: boolean }) ?? undefined;
 
 	/** 요청 취소 */
 	if (axios.isCancel(error)) {
-		return Promise.resolve(null);
-	}
-
-	/** 5xx 서버 에러 - 지수 백오프 재시도 */
-	const responseStatus = error.response?.status;
-	if (responseStatus && isRetryableStatusCode(responseStatus) && originalRequest) {
-		return retryWithExponentialBackoff(originalRequest, error);
+		return Promise.reject(new RequestCancelledError());
 	}
 
 	/** access token 만료 */
@@ -91,7 +98,7 @@ export const responseErrorInterceptor = async (error: AxiosError) => {
 
 			Token.clearToken();
 
-			if (typeof window !== "undefined") {
+			if (!originalRequest.skipUnauthorizedRedirect && typeof window !== "undefined") {
 				window.location.href = "/signin";
 			}
 
