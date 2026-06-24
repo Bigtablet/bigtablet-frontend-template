@@ -65,6 +65,62 @@ label/domain
 - Pull Request를 열었다면 반드시 팀원에게 Review를 요청
 - 요청을 받은 팀원은 Review 후 Approve 혹은 Comment 등으로 코드 리뷰를 성실히 수행
 - Approve가 내려지기 전에 해당 Pull Request는 병합하지 않음
+- 리뷰 코멘트에는 **각각 답글로 응대**하고, 반영이 끝난 스레드는 **resolve** 처리
+
+### 리뷰어 멘션 / 요청
+
+```bash
+# 리뷰어 지정
+gh pr edit <PR번호> --add-reviewer 깃헙아이디1,깃헙아이디2
+
+# 코멘트로 멘션 (일반 코멘트)
+gh pr comment <PR번호> --body "@깃헙아이디 리뷰 부탁드립니다 🙏"
+```
+
+### 리뷰 코멘트 답글
+
+인라인 리뷰 코멘트 답글은 `gh api`로 단다 (gh CLI 전용 명령 없음). `{owner}/{repo}`는 실제 값으로 치환.
+
+```bash
+# 1) 리뷰 코멘트 목록 + id 확인
+gh api repos/{owner}/{repo}/pulls/<PR번호>/comments \
+  --jq '.[] | {id, path, line, body: .body[0:60]}'
+
+# 2) 특정 코멘트에 답글 (해당 스레드로 연결)
+gh api repos/{owner}/{repo}/pulls/<PR번호>/comments/<코멘트id>/replies \
+  -f body="반영했습니다. 감사합니다 🙏"
+
+# PR 전체에 대한 일반 코멘트는 gh pr comment 사용
+gh pr comment <PR번호> --body "리뷰 반영 완료했습니다"
+```
+
+### 리뷰 스레드 resolve
+
+스레드 resolve는 GraphQL `resolveReviewThread` 뮤테이션을 사용한다 (REST 미지원).
+
+```bash
+# 1) 미해결 스레드 id 조회
+gh api graphql -f query='
+  query($owner:String!,$repo:String!,$num:Int!){
+    repository(owner:$owner,name:$repo){
+      pullRequest(number:$num){
+        reviewThreads(first:100){
+          nodes{ id isResolved comments(first:1){ nodes{ path body } } }
+        }
+      }
+    }
+  }' -f owner=<owner> -f repo=<repo> -F num=<PR번호> \
+  --jq '.data.repository.pullRequest.reviewThreads.nodes[]
+        | select(.isResolved|not)
+        | {id, path: .comments.nodes[0].path}'
+
+# 2) 스레드 resolve (위에서 얻은 node id 사용)
+gh api graphql -f query='
+  mutation($id:ID!){ resolveReviewThread(input:{threadId:$id}){ thread{ isResolved } } }' \
+  -f id=<스레드id>
+```
+
+> **답글 → (필요 시 수정·푸시) → resolve** 순서를 지킨다. 리뷰어가 무엇이 반영됐는지 추적할 수 있도록, 답글 없이 임의로 resolve 하지 않는다.
 
 ## Claude Workflow
 
@@ -138,7 +194,15 @@ EOF
 )"
 ```
 
-### 6. Release PR 생성 (develop → main 배포 시)
+### 6. Review 응대
+
+리뷰 코멘트가 달리면 각 코멘트에 답글을 달고, 반영이 끝난 스레드는 resolve 한다. (명령은 위 [Review](#review) 섹션 참고)
+
+- **수정이 필요한 코멘트**: 코드 수정 → 커밋·푸시 → 해당 코멘트에 답글(`반영했습니다`) → 스레드 resolve
+- **반영하지 않을 코멘트**: 이유를 답글로 남기고 리뷰어 판단을 기다린다 (임의 resolve 금지)
+- **본인 PR은 본인이 머지하지 않는다** — Approve 후 브랜치 생성자가 머지
+
+### 7. Release PR 생성 (develop → main 배포 시)
 
 - **Base branch**: `main`
 - **PR title**: `release/v버전` 형식
@@ -186,3 +250,5 @@ EOF
 - Issue와 PR 본문은 한글로 작성
 - **커밋 메시지는 반드시 영문 소문자 사용**
 - Approve 없이 병합 금지
+- 리뷰 코멘트는 답글로 응대 후 반영 완료 스레드만 resolve (임의 resolve 금지)
+- 본인 PR은 본인이 머지하지 않음 (브랜치 생성자가 Approve 후 머지)
