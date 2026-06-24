@@ -12,23 +12,23 @@
 		"format": "biome format --write"
 	},
 	"dependencies": {
-		"@bigtablet/design-system": "^1.22.0",
+		"@bigtablet/design-system": "^3.2.2",
 		"@tanstack/react-query": "^5.91.2",
 		"axios": "^1.13.6",
 		"js-cookie": "^3.0.5",
-		"next": "16.2.0",
-		"react": "19.2.4",
-		"react-dom": "19.2.4",
+		"next": "16.2.9",
+		"react": "19.2.7",
+		"react-dom": "19.2.7",
 		"sass": "^1.98.0",
 		"zustand": "^5.0.12",
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.8",
+		"@biomejs/biome": "2.5.1",
 		"@types/js-cookie": "^3.0.6",
-		"@types/node": "^25",
+		"@types/node": "^26",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
-		"typescript": "^5"
+		"typescript": "^6"
 	}
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import "./axios-augmentation";
 import { requestInterceptor } from "./request-interceptor";
 import { responseErrorInterceptor } from "./response-error-interceptor";
 

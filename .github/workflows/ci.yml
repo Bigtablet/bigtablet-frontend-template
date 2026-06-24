@@ -17,7 +17,7 @@ jobs:
     # develop 브랜치 대상 PR에서만 실행, dependabot PR은 제외
     if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && github.base_ref == 'develop'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v5
