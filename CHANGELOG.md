@@ -1,3 +1,11 @@
+# [1.8.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.7.2...1.8.0) (2026-06-24)
+
+
+### Features
+
+* align template api/query layer with monorepo patterns ([46c8df6](https://github.com/Bigtablet/bigtablet-frontend-template/commit/46c8df67ad7466b5681ab5b6ff7ee79d5ad29de1))
+* update template deps and migrate design-system template to ds v3 ([5a418b7](https://github.com/Bigtablet/bigtablet-frontend-template/commit/5a418b7d0510a5eefded2d007f50305ba5309f8e))
+
 ## [1.7.2](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.7.1...1.7.2) (2026-04-13)
 
 ## [1.7.1](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.7.0...1.7.1) (2026-04-03)
