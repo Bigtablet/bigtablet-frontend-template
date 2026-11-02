@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.8.1...1.8.2) (2026-11-02)
+
+
+### Bug Fixes
+
+* validate sign-in redirect origin and support older pnpm workspaces ([529ecbd](https://github.com/Bigtablet/bigtablet-frontend-template/commit/529ecbda2c730285dfa52291f0c5c6245bb1b778))
+
 ## [1.8.1](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.8.0...1.8.1) (2026-06-24)
 
 # [1.8.0](https://github.com/Bigtablet/bigtablet-frontend-template/compare/1.7.2...1.8.0) (2026-06-24)
