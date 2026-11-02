@@ -1,4 +1,3 @@
-import BigtabletAxios from "src/shared/libs/api/axios";
 import {
 	type AuthResponseSchema,
 	type RefreshRequestSchema,
@@ -6,6 +5,7 @@ import {
 	refreshResponseSchema,
 	type SigninSchema,
 } from "src/entities/sign-in/schema/sign-in.schema";
+import BigtabletAxios from "src/shared/libs/api/axios";
 
 /**
  * @description

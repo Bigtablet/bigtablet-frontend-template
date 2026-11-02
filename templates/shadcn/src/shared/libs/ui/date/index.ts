@@ -23,10 +23,25 @@ export const formatRelative = (dateStr?: string, locale?: string) => {
 		numeric: "auto",
 	});
 
-	if (absSec < SECONDS_PER_MINUTE) return rtf.format(Math.round(diffMs / MILLISECONDS_PER_SECOND), "second");
+	if (absSec < SECONDS_PER_MINUTE)
+		return rtf.format(Math.round(diffMs / MILLISECONDS_PER_SECOND), "second");
 	const absMin = Math.round(absSec / SECONDS_PER_MINUTE);
-	if (absMin < MINUTES_PER_HOUR) return rtf.format(Math.round(diffMs / (SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND)), "minute");
+	if (absMin < MINUTES_PER_HOUR)
+		return rtf.format(
+			Math.round(diffMs / (SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND)),
+			"minute",
+		);
 	const absHr = Math.round(absMin / MINUTES_PER_HOUR);
-	if (absHr < HOURS_PER_DAY) return rtf.format(Math.round(diffMs / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND)), "hour");
-	return rtf.format(Math.round(diffMs / (HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND)), "day");
+	if (absHr < HOURS_PER_DAY)
+		return rtf.format(
+			Math.round(diffMs / (MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND)),
+			"hour",
+		);
+	return rtf.format(
+		Math.round(
+			diffMs /
+				(HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND),
+		),
+		"day",
+	);
 };

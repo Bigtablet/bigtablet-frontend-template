@@ -7,10 +7,11 @@
  * - ModalRenderer: 모달 스택을 DOM에 렌더링하는 컴포넌트 (Providers에서 사용)
  * - 타입: ModalItem, ModalStore, ModalIdentifier
  */
-export { useModalStore } from "src/shared/libs/modal/modal.store";
+
 export { default as ModalRenderer } from "src/shared/libs/modal/modal.renderer";
+export { useModalStore } from "src/shared/libs/modal/modal.store";
 export type {
+	ModalIdentifier,
 	ModalItem,
 	ModalStore,
-	ModalIdentifier,
 } from "src/shared/libs/modal/modal.types";

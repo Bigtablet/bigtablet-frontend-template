@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 import { signinApi } from "src/entities/sign-in/api/sign-in.api";
-import type { SigninSchema } from "src/entities/sign-in/schema/sign-in.schema";
 import { AuthMutationKeys } from "src/features/sign-in/mutation/keys";
 
 /**
