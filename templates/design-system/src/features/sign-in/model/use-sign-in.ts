@@ -77,15 +77,14 @@ const useSignin = () => {
 
 			toast.success("Signin successful.");
 
-			const redirect = searchParams.get("redirect");
-
-			// Validate redirect URL to prevent open redirects.
-			// It must be a relative path starting with a single '/'.
-			if (redirect?.startsWith("/") && !redirect.startsWith("//")) {
-				router.replace(redirect);
-			} else {
-				router.replace("/main");
-			}
+			// open redirect 방지: URL 로 해석해 같은 origin 일 때만 이동한다.
+			// 문자열 검사(`/` 시작, `//` 아님)는 `/\evil.example` 을 통과시킨다.
+			const target = new URL(searchParams.get("redirect") ?? "/main", window.location.origin);
+			router.replace(
+				target.origin === window.location.origin
+					? `${target.pathname}${target.search}${target.hash}`
+					: "/main",
+			);
 		} catch {
 			setErrors({
 				email: "",

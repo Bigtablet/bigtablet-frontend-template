@@ -12,7 +12,7 @@ node_modules/@bigtablet/design-system/docs/AGENT_GUIDE.md
 
 - `import "@bigtablet/design-system/style.css"` 를 쓰지 않는다. v4 부터 컴포넌트를 import 하면 그 컴포넌트 CSS 만 자동으로 실린다.
 - 값 콜백은 `onValueChange` (TextField · Textarea · Dropdown · DatePicker · Accordion · OtpInput), `onCheckedChange` (Toggle), `onPageChange` (Pagination). `onChange` / `onChangeAction` 은 v4.1.0 에서 지워졌다.
-- 모양은 `variant`, 의미 색(info · success · warning · error)은 `tone` (Badge · Alert · Toast · Chip).
+- 의미 색(info · success · warning · error)은 `tone` (Badge · Alert · Toast · Chip). 모양은 대부분 `variant` 지만 Badge 는 `shape` (label · dot · count) 다.
 - SCSS 토큰: `@use "@bigtablet/design-system/scss/token" as token;`
   - `$spacing_*` · `$radius_*` 는 `var()` 문자열이다. Sass 산술은 `calc()` 안에서 한다: `calc(2 * #{token.$spacing_48})`. 고정 숫자가 필요하면 `$spacing_base_*`.
 - 색·간격·radius·그림자를 하드코딩하지 않는다. 다크 모드는 토큰이 알아서 뒤집는다.
