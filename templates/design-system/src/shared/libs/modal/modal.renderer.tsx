@@ -24,12 +24,7 @@ const ModalRenderer = () => {
 		<>
 			{modalStack.map((modalItem) => {
 				const ModalComponent = modalItem.component;
-				return (
-					<ModalComponent
-						key={modalItem.identifier}
-						{...(modalItem.props ?? {})}
-					/>
-				);
+				return <ModalComponent key={modalItem.identifier} {...(modalItem.props ?? {})} />;
 			})}
 		</>
 	);

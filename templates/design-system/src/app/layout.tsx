@@ -1,7 +1,6 @@
 import "src/app/global.css";
-import Providers from "src/widgets/layouts/provider";
-import "@bigtablet/design-system/style.css";
 import type { Metadata } from "next";
+import Providers from "src/widgets/layouts/provider";
 
 export const metadata: Metadata = {
 	title: "Bigtablet",

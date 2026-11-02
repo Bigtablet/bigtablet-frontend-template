@@ -1,4 +1,3 @@
-import BigtabletAxios from "src/shared/libs/api/axios";
 import {
 	type AuthResponseSchema,
 	type RefreshRequestSchema,
@@ -6,6 +5,7 @@ import {
 	refreshResponseSchema,
 	type SigninSchema,
 } from "src/entities/sign-in/schema/sign-in.schema";
+import BigtabletAxios from "src/shared/libs/api/axios";
 
 /**
  * @description 로그인 요청을 보내고 인증 응답을 받습니다.

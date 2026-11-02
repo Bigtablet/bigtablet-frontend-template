@@ -1,9 +1,9 @@
 "use client";
 
+import { Button, TextField } from "@bigtablet/design-system";
 import Image from "next/image";
 import useSignin from "src/features/sign-in/model/use-sign-in";
 import styles from "./style.module.scss";
-import { Button, TextField } from "@bigtablet/design-system";
 
 /**
  * @description
@@ -32,7 +32,7 @@ const Signin = () => {
 						fullWidth
 						value={signinData.email}
 						placeholder="Input your Email"
-						onChangeAction={(value) => handleSigninData("email", value)}
+						onValueChange={(value) => handleSigninData("email", value)}
 						onKeyDown={handleKeyDown}
 						error={!!errors.email}
 						supportingText={errors.email}
@@ -45,7 +45,7 @@ const Signin = () => {
 						fullWidth
 						value={signinData.password}
 						placeholder="Input your Password"
-						onChangeAction={(value) => handleSigninData("password", value)}
+						onValueChange={(value) => handleSigninData("password", value)}
 						onKeyDown={handleKeyDown}
 						error={!!errors.password}
 						supportingText={errors.password}

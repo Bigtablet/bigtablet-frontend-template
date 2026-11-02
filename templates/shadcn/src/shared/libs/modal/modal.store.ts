@@ -1,6 +1,5 @@
-import { create } from "zustand";
-
 import type { ModalItem, ModalStore } from "src/shared/libs/modal/modal.types";
+import { create } from "zustand";
 
 /**
  * @description

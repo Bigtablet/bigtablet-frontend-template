@@ -22,7 +22,9 @@ export const useApiErrorToast = () => {
 
 	return (error: unknown) => {
 		const parsedError =
-			typeof error === "object" && error !== null ? (error as Partial<ErrorResponseParsed>) : {};
+			typeof error === "object" && error !== null
+				? (error as Partial<ErrorResponseParsed>)
+				: {};
 
 		const status = parsedError.status ?? 0;
 
