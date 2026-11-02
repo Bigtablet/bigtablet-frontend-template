@@ -83,7 +83,10 @@ const useSignin = () => {
 					router.replace("/main");
 				}
 			} catch {
-				setFieldErrors({ email: "", password: "이메일 또는 비밀번호가 올바르지 않습니다." });
+				setFieldErrors({
+					email: "",
+					password: "이메일 또는 비밀번호가 올바르지 않습니다.",
+				});
 				toast.error("이메일 또는 비밀번호가 올바르지 않습니다.");
 			}
 		})();

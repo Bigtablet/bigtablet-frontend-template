@@ -81,7 +81,7 @@ const useSignin = () => {
 
 			// Validate redirect URL to prevent open redirects.
 			// It must be a relative path starting with a single '/'.
-			if (redirect && redirect.startsWith("/") && !redirect.startsWith("//")) {
+			if (redirect?.startsWith("/") && !redirect.startsWith("//")) {
 				router.replace(redirect);
 			} else {
 				router.replace("/main");

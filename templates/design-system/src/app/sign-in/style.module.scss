@@ -1,34 +1,34 @@
 @use "@bigtablet/design-system/scss/token" as token;
 
 .auth_main {
-  width: 100vw;
-  height: 100vh;
-  @include token.flex-center;
-  background-color: token.$color_bg_solid;
+	width: 100vw;
+	height: 100vh;
+	@include token.flex-center;
+	background-color: token.$color_bg_solid;
 
-  .auth_container {
-    @include token.flex-column-center;
-    padding: token.$spacing_16 token.$spacing_20;
-    background-color: token.$color_bg_solid_dim;
-    border-radius: token.$radius_lg;
-    box-shadow: token.$elevation_level3;
-    gap: token.$spacing_20;
+	.auth_container {
+		@include token.flex-column-center;
+		padding: token.$spacing_16 token.$spacing_20;
+		background-color: token.$color_bg_solid_dim;
+		border-radius: token.$radius_lg;
+		box-shadow: token.$elevation_level3;
+		gap: token.$spacing_20;
 
-    .auth_textfield {
-      @include token.flex-column-center;
-      width: 100%;
-      padding: token.$spacing_8;
-      gap: token.$spacing_12;
+		.auth_textfield {
+			@include token.flex-column-center;
+			width: 100%;
+			padding: token.$spacing_8;
+			gap: token.$spacing_12;
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
 
-      span {
-        @include token.body_small;
-        cursor: pointer;
-      }
-    }
-  }
+			span {
+				@include token.body_small;
+				cursor: pointer;
+			}
+		}
+	}
 }
